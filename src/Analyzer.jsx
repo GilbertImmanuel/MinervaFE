@@ -20,11 +20,11 @@ const Analyzer = ({ onTabSwitch }) => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 flex flex-col">
+    <div className="min-h-screen bg-gradient-to-br from-slate-950 to-sky-950 flex flex-col">
       <Header />
       <div className="text-center mt-6">
-        <h1 className="text-3xl font-bold">Simplify Complexity with Artificial Intelligence</h1>
-        <p className="mt-4 mb-2">Enjoy the ease and efficiency of gaining important insights with AnalyzeAI</p>
+        <h1 className="text-3xl font-bold text-white">Simplify Complexity with Artificial Intelligence</h1>
+        <p className="mt-4 mb-2 text-white">Enjoy the ease and efficiency of gaining important insights with AnalyzeAI</p>
       </div>
       <main className="flex-grow container mx-auto p-4">
         <div className="flex justify-center">
@@ -35,13 +35,13 @@ const Analyzer = ({ onTabSwitch }) => {
                 className="flex-1 py-2 px-4"
                 onClick={() => onTabSwitch('summarizer')}
               >
-                Text Summarizer
+                Summarizer
               </button>
               {/* Active tab */}
               <button
                 className="flex-1 bg-blue-500 text-white py-2 px-4 rounded-tr rounded-br"
               >
-                Document Analyzer
+                Analyzer
               </button>
             </div>
             <div className="mb-4">

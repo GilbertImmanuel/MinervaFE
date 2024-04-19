@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
 import Header from './Header';
+import mainpages from './assets/mainpages.png';
+import { Switch } from '@headlessui/react';
 
 const Summarizer = ({ onTabSwitch }) => {
   const [inputText, setInputText] = useState('');
   const [summaryLength, setSummaryLength] = useState(512);
+  const [enabled, setEnabled] = useState(false);
 
   const handleInputChange = (event) => {
     setInputText(event.target.value);
@@ -24,27 +27,43 @@ const Summarizer = ({ onTabSwitch }) => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 flex flex-col">
+    <div className="min-h-screen bg-gradient-to-br from-slate-950 to-sky-950 flex flex-col relative">
+      <img className="absolute h-full w-full" src={mainpages} alt="Main Pages" />
+      <div className='z-10'>
       <Header />
+      <Switch
+        checked={enabled}
+        onChange={setEnabled}
+        className={`${
+          enabled ? 'bg-blue-600' : 'bg-gray-200'
+        } relative inline-flex h-6 w-11 items-center rounded-full`}
+      >
+        <span className="sr-only">Enable notifications</span>
+        <span
+          className={`${
+            enabled ? 'translate-x-6' : 'translate-x-1'
+          } inline-block h-4 w-4 transform rounded-full bg-white transition`}
+        />
+      </Switch>
       <div className="text-center mt-6">
-        <h1 className="text-3xl font-bold">Simplify Complexity with Artificial Intelligence</h1>
-        <p className="mt-4 mb-2">Enjoy the ease and efficiency of gaining important insights with SummarizeAI</p>
+        <h1 className="text-4xl montserrat font-bold text-white">Simplify Complexity with <br />Artificial Intelligence</h1>
+        <p className="mt-4 mb-2 monserrat text-white">Enjoy the ease and efficiency of gaining important insights with SummarizeAI</p>
       </div>
-      <main className="flex-grow container mx-auto p-4">
+      <main className="mx-auto flex-grow p-4 w-[30%] rounded">
         <div className="flex justify-center">
           <section className="bg-white shadow-md rounded p-6 m-4 flex flex-col items-stretch w-full max-w-4xl">
             <div className="flex mb-4">
               {/* Active tab */}
               <button
               className="flex-1 bg-blue-500 text-white py-2 px-4 rounded-tl rounded-bl">
-                Text Summarizer
+                Summarizer
               </button>
               {/* Inactive tab */}
               <button
                 className="flex-1 py-2 px-4"
                 onClick={() => onTabSwitch('analyzer')}
                 >
-                Document Analyzer
+                Analyzer
               </button>
             </div>
             <textarea
@@ -78,12 +97,14 @@ const Summarizer = ({ onTabSwitch }) => {
               className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
               onClick={handleSubmit}
             >
-              Start Process
+              Start Summarizing
             </button>
           </section>
 
         </div>
       </main>
+    
+      </div> 
     </div>
   );
 };
