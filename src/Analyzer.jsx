@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Header from './Header';
+import mainpages from './assets/mainpages.png';
 
 const Analyzer = ({ onTabSwitch }) => {
   const [file, setFile] = useState(null);
@@ -21,12 +22,14 @@ const Analyzer = ({ onTabSwitch }) => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-950 to-sky-950 flex flex-col">
+      <img className="absolute h-full w-full" src={mainpages} alt="Main Pages" />
+      <div className='z-10'>
       <Header />
       <div className="text-center mt-6">
-        <h1 className="text-3xl font-bold text-white">Simplify Complexity with Artificial Intelligence</h1>
-        <p className="mt-4 mb-2 text-white">Enjoy the ease and efficiency of gaining important insights with AnalyzeAI</p>
+      <h1 className="text-4xl montserrat font-bold text-white">Simplify Complexity with <br />Artificial Intelligence</h1>
+        <p className="mt-4 mb-2 monserrat text-white">Enjoy the ease and efficiency of gaining important insights with SummarizeAI</p>
       </div>
-      <main className="flex-grow container mx-auto p-4">
+      <main className="mx-auto flex-grow p-4 w-[30%] rounded">
         <div className="flex justify-center">
           <section className="bg-white shadow-md rounded p-6 m-4 flex flex-col items-stretch w-full max-w-4xl">
             <div className="flex mb-4">
@@ -69,6 +72,7 @@ const Analyzer = ({ onTabSwitch }) => {
           </section>
         </div>
       </main>
+      </div>
     </div>
   );
 };
