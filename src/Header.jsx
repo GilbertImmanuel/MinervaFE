@@ -1,5 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import logo from './assets/logo.png'; // Ensure this path is correct
 
 const Header = () => {
   const navigate = useNavigate();
@@ -13,7 +14,7 @@ const Header = () => {
   };
 
   return (
-    <header className="bg-blue-800 text-white p-4 flex justify-between items-center">
+    <header className="text-white p-4 flex justify-between items-center bg-no-repeat">
       <div className="flex items-center">
         <button className="mr-4">
           <svg
@@ -28,13 +29,15 @@ const Header = () => {
             <path d="M4 6h16M4 12h16m-7 6h7" />
           </svg>
         </button>
+        <img src={logo} alt="logo" className="mr-2 h-6" />
         <h1 className="text-xl">Summasphere</h1>
       </div>
       <nav>
-        <button onClick={handleLoginClick} className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded">
+        {/* Use Tailwind CSS for transparent background and white text */}
+        <button onClick={handleLoginClick} className="text-white py-2 px-4 rounded bg-transparent border border-transparent hover:bg-white hover:text-blue-500">
           Log In
         </button>
-        <button onClick={handleRegisterClick} className="ml-2 bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded">
+        <button onClick={handleRegisterClick} className="ml-2 text-white py-2 px-4 rounded bg-transparent border border-transparent hover:bg-white hover:text-blue-500">
           Join for Free
         </button>
       </nav>

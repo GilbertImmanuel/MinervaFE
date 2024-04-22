@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import googleIcon from './assets/googleIcon.png';
-import placeholderLogo from './assets/placeholder.png'; // Add the path to your Google icon image
+import logo from './assets/logo.png'; // Add the path to your Google icon image
 
 const Register = () => {
   const navigate = useNavigate();
@@ -110,7 +110,7 @@ const Register = () => {
       {/* Logo and Tagline Section */}
       <div className="flex-1 flex items-center justify-center p-12">
         <div className="text-center">
-          <img className="mx-auto h-60 w-auto" src={placeholderLogo} alt="Summasphere logo" />
+          <img className="mx-auto h-60 w-auto" src={logo} alt="Summasphere logo" />
           <h2 className="mt-6 text-3xl font-extrabold text-white">
             Welcome to Summasphere
           </h2>

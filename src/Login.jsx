@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import googleIcon from './assets/googleIcon.png';
-import placeholderLogo from './assets/placeholder.png'; // Ensure this is the correct path to your logo file
+import logo from './assets/logo.png'; // Ensure this is the correct path to your logo file
 
 const Login = () => {
   const navigate = useNavigate();
@@ -92,7 +92,7 @@ const Login = () => {
       {/* Logo and Tagline Section */}
       <div className="flex-1 flex items-center justify-center p-12">
         <div className="text-center">
-          <img className="mx-auto h-60 w-auto" src={placeholderLogo} alt="Summasphere logo" />
+          <img className="mx-auto h-60 w-auto" src={logo} alt="Summasphere logo" />
           <h2 className="mt-6 text-3xl font-extrabold text-white">
             Welcome to Summasphere
           </h2>
