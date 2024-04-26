@@ -5,7 +5,6 @@ import ToggleSwitch from './ToggleSwitch';
 const Summarizer = ({ onTabSwitch }) => {
   const [inputText, setInputText] = useState('');
   const [summaryLength, setSummaryLength] = useState(512);
-  const [isAnalyzerActive, setIsAnalyzerActive] = useState(false);
 
   const handleInputChange = (event) => {
     setInputText(event.target.value);
@@ -37,13 +36,13 @@ const Summarizer = ({ onTabSwitch }) => {
         <div className="text-center mt-6">
           <div className="flex justify-center items-center my-4">
             {/* Text for Summarizer */}
-            <span className={`font-bold text-xl pr-4 ${!isAnalyzerActive ? 'text-white' : 'text-gray-400'}`}>
+            <span className="font-bold text-xl pr-4 text-white">
               Summarizer
             </span>
             {/* Switch component */}
-            <ToggleSwitch isOn={isAnalyzerActive} onToggle={handleToggle} />
+            <ToggleSwitch onTabSwitch={onTabSwitch} initialTab="summarizer" />
             {/* Text for Analyzer */}
-            <span className={`font-bold text-xl pl-4 ${isAnalyzerActive ? 'text-white' : 'text-gray-400'}`}>
+            <span className="font-bold text-xl pl-4 text-gray-400">
               Analyzer
             </span>
           </div>

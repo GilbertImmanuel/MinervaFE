@@ -5,7 +5,6 @@ import ToggleSwitch from './ToggleSwitch'; // Import the ToggleSwitch component
 const Analyzer = ({ onTabSwitch }) => {
   const [file, setFile] = useState(null);
   const [sourceUrl, setSourceUrl] = useState('');
-  const [isSummarizerActive, setIsSummarizerActive] = useState(true); // Initial state should be true for Summarizer
 
   const handleFileChange = (event) => {
     setFile(event.target.files[0]);
@@ -31,11 +30,11 @@ const Analyzer = ({ onTabSwitch }) => {
       <div className='z-10'>
         <div className="text-center mt-6">
           <div className="flex justify-center items-center my-4">
-            <span className={`font-bold text-xl pr-4 ${isSummarizerActive ? 'text-white' : 'text-gray-400'} px-2`}>
+            <span className="font-bold text-xl pr-4 text-gray-400">
               Summarizer
             </span>
-            <ToggleSwitch isOn={isSummarizerActive} onToggle={handleToggle} />
-            <span className={`font-bold text-xl pl-4 ${!isSummarizerActive ? 'text-white' : 'text-gray-400'} px-2`}>
+            <ToggleSwitch onTabSwitch={onTabSwitch} initialTab="analyzer" />
+            <span className="font-bold text-xl pl-4 text-white">
               Analyzer
             </span>
           </div>
