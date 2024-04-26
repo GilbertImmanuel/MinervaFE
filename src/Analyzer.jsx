@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Header from './Header';
-import ToggleSwitch from './ToggleSwitch'; // Import the ToggleSwitch component
+import ToggleSwitch from './ToggleSwitch';
+import './index.css';
 
 const Analyzer = ({ onTabSwitch }) => {
   const [file, setFile] = useState(null);
@@ -25,7 +26,7 @@ const Analyzer = ({ onTabSwitch }) => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-950 to-sky-950 flex flex-col">
+    <div className="min-h-screen flex flex-col relative background-layered">
       <Header />
       <div className='z-10'>
         <div className="text-center mt-6">
