@@ -8,3 +8,7 @@ npx tailwindcss init -p
 ```
 npm install --save react-router-dom
 ```
+3. Install React Component:
+```
+npm install @headlessui/react
+```
