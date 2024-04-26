@@ -16,6 +16,11 @@ const Login = () => {
     navigate('/register'); // Redirect to the registration page
   };
 
+  const handleForgotPasswordClick = (e) => {
+    e.preventDefault();
+    navigate('/forgetpassword'); // Redirect to the registration page
+  };
+
   return (
     <div className="flex min-h-screen bg-gradient-to-br from-slate-950 to-sky-950">
       {/* Login Form Section */}
@@ -48,9 +53,8 @@ const Login = () => {
             </div>
             <div className="mb-4 text-right">
               <a
-                href="#"
-                className="inline-block align-baseline font-semibold text-sm text-gray-700 hover:text-gray-800"
-                onClick={e => e.preventDefault()}
+                onClick={handleForgotPasswordClick}
+                className="inline-block align-baseline font-semibold text-sm text-gray-700 hover:text-gray-800 cursor-pointer"
               >
                 Forgot Password
               </a>

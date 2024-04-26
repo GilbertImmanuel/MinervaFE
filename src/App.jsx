@@ -5,6 +5,7 @@ import Summarizer from './Summarizer';
 import Analyzer from './Analyzer';
 import Login from './Login';
 import Register from './Register';
+import ForgetPassword from './ForgetPassword';
 
 const App = () => {
   const [activeTab, setActiveTab] = useState('summarizer');
@@ -20,6 +21,7 @@ const App = () => {
         } />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/forgetpassword" element={<ForgetPassword />} />
         {/* Define other routes as needed */}
       </Routes>
     </Router>
