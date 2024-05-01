@@ -15,3 +15,10 @@
   background-repeat: no-repeat, no-repeat;
   background-position: center, center;
 }
+
+.background-layered2 {
+  background-image: url('/src/assets/mainpages2.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}

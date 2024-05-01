@@ -1,17 +1,11 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import logo from './assets/logo.png'; // Ensure this path is correct
+import PublicNavbar from './navbar/PublicNavbar';
+import UserNavbar from './navbar/UserNavbar';
+import logo from './assets/logo.png';
 
 const Header = () => {
-  const navigate = useNavigate();
-
-  const handleLoginClick = () => {
-    navigate('/login');
-  };
-
-  const handleRegisterClick = () => {
-    navigate('/register');
-  };
+  const isLoggedIn = true;
+  // const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   return (
     <header className="text-white p-4 flex justify-between items-center bg-no-repeat z-10">
@@ -33,13 +27,7 @@ const Header = () => {
         <h1 className="text-xl">Summasphere</h1>
       </div>
       <nav>
-        {/* Use Tailwind CSS for transparent background and white text */}
-        <button onClick={handleLoginClick} className="text-white py-2 px-4 rounded bg-transparent border border-transparent hover:bg-white hover:text-blue-500">
-          Log In
-        </button>
-        <button onClick={handleRegisterClick} className="ml-2 text-white py-2 px-4 rounded bg-transparent border border-transparent hover:bg-white hover:text-blue-500">
-          Join for Free
-        </button>
+        {isLoggedIn ? <UserNavbar /> : <PublicNavbar />}
       </nav>
     </header>
   );
