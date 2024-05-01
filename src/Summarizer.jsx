@@ -24,7 +24,7 @@ const Summarizer = () => {
 
   return (
     <div className="flex justify-center">
-      <section className="bg-white shadow-md rounded p-6 m-4 flex flex-col items-stretch w-full max-w-4xl">
+      <section className="bg-white shadow-md rounded-3xl p-6 m-4 flex flex-col items-stretch w-full max-w-4xl">
         <textarea
           className="border p-2 mb-4 rounded"
           placeholder="Input Text..."
@@ -53,7 +53,7 @@ const Summarizer = () => {
         }}
         />
         <button
-          className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
+          className="bg-blue-500 text-white py-2 px-4 rounded-2xl hover:bg-blue-600"
           onClick={handleSubmit}
         >
           Start Summarizing

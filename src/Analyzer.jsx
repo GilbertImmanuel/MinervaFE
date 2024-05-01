@@ -20,7 +20,7 @@ const Analyzer = () => {
 
   return (
     <div className="flex justify-center">
-      <section className="bg-white shadow-md rounded p-6 m-4 flex flex-col items-stretch w-full max-w-4xl">
+      <section className="bg-white shadow-md rounded-3xl p-6 m-4 flex flex-col items-stretch w-full max-w-4xl">
         <div className="mb-4">
           <input
             type="file"
@@ -38,7 +38,7 @@ const Analyzer = () => {
           />
         </div>
         <button
-          className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
+          className="bg-blue-500 text-white py-2 px-4 rounded-2xl hover:bg-blue-600"
           onClick={handleProcessStart}
         >
           Start Process
