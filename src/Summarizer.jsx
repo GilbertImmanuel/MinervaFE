@@ -25,11 +25,6 @@ const Summarizer = ({ onTabSwitch }) => {
     console.log("Summary length: ", summaryLength);
   };
 
-  const handleToggle = (newState) => {
-    setIsAnalyzerActive(newState);
-    onTabSwitch(newState ? 'analyzer' : 'summarizer');
-  };
-
   return (
     <div className="min-h-screen flex flex-col relative background-layered">
       <Header />

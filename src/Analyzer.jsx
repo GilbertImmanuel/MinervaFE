@@ -20,11 +20,6 @@ const Analyzer = ({ onTabSwitch }) => {
     console.log("Source URL: ", sourceUrl);
   };
 
-  const handleToggle = (newState) => {
-    setIsSummarizerActive(newState);
-    onTabSwitch(newState ? 'summarizer' : 'analyzer');
-  };
-
   return (
     <div className="min-h-screen flex flex-col relative background-layered">
       <Header />
