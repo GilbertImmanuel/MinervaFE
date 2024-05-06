@@ -1,20 +1,45 @@
-import React, { useState } from 'react';
+
 import axios from 'axios';
 import ReactMarkdown from 'react-markdown'
 import { PropagateLoader } from 'react-spinners';
+import React, { useState, useRef, useEffect } from 'react';
+import iconUpload from './assets/icons/iconupload.png';
+import iconSend from './assets/icons/iconsend.png';
 
 const Summarizer = () => {
   const [inputText, setInputText] = useState('');
   const [summaryLength, setSummaryLength] = useState(512);
   const [file, setFile] = useState(null);
   const [markdown, setMarkdown] = useState('')
+  const textareaRef = useRef(null);
+  const fileInputRef = useRef(null);
+
+  useEffect(() => {
+    const handleResize = () => {
+      const textarea = textareaRef.current;
+      textarea.style.height = 'auto';
+      textarea.style.height = `${textarea.scrollHeight}px`;
+    };
+
+    const textarea = textareaRef.current;
+    textarea.addEventListener('input', handleResize);
+    return () => {
+      textarea.removeEventListener('input', handleResize);
+    };
+  }, []);
 
   const handleInputChange = (event) => {
     setInputText(event.target.value);
   };
 
   const handleFileChange = (event) => {
-    setFile(event.target.files[0]);
+    const file = event.target.files[0];
+    const allowedTypes = ['application/pdf', 'text/csv', 'text/plain'];
+    if (allowedTypes.includes(file.type)) {
+      setFile(file);
+    } else {
+      alert('Please select a PDF, CSV, or TXT file.');
+    }
   };
 
   const handleLengthChange = (event) => {
@@ -47,7 +72,11 @@ const Summarizer = () => {
     console.log("Result: ", result.data.summary)
     await handleResponse(result);
   };
-
+ 
+  const handleFileUpload = () => {
+    fileInputRef.current.click();
+  };
+  
   const handleResponse = async (result) => {
     document.getElementById('summarizing-button-text').classList.remove('hidden');
     document.getElementById('summarizing-button-spinner').classList.add('!hidden');
@@ -69,17 +98,35 @@ const Summarizer = () => {
   return (
     <div className="flex justify-center flex-col">
       <section className="mx-auto bg-white shadow-md rounded-3xl p-6 my-4 flex flex-col items-stretch w-[50%] max-w-4xl">
-        <textarea
-          className="border p-2 mb-4 rounded"
-          placeholder="Input Text..."
-          value={inputText}
-          onChange={handleInputChange}
-        />
-        <input
-          type="file"
-          onChange={handleFileChange}
-          className="w-full text-sm text-grey-500 file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-sm file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 mb-4"
-        />
+        <div className="flex items-center border-2 rounded-lg bg-white p-2 mb-2">
+          <textarea
+            ref={textareaRef}
+            className="bg-white w-full focus:outline-none resize-y overflow-auto min-h-6 max-h-32"
+            placeholder="Input the text to be summarized..."
+            value={inputText}
+            onChange={handleInputChange}
+            rows={1}
+          />
+        </div>
+        <div className="flex items-center justify-center mb-2">
+          <p className="text-black text-m">or</p>
+        </div>
+        <div
+          className="flex items-center justify-center border-2 rounded-lg bg-white p-2 mb-4 cursor-pointer"
+          onClick={handleFileUpload}
+        >
+          <div className="flex items-center">
+            <img src={iconUpload} alt="Upload" className="h-4.5 w-4.5 mr-3"/>
+            <span className="text-gray-500">Upload pdf, csv, txt</span>
+          </div>
+          <input
+            ref={fileInputRef}
+            type="file"
+            onChange={handleFileChange}
+            accept=".pdf,.csv,.txt"
+            className="hidden"
+          />
+        </div>
         <label htmlFor="lengthRange" className="text-sm font-medium text-gray-900 dark:text-gray-300">
           Length: {summaryLength}
         </label>
@@ -102,7 +149,8 @@ const Summarizer = () => {
           onClick={handleSubmit}
         >
           <span id='summarizing-button-text'>
-            Start Summarizing
+            <img src={iconSend} alt="Send" className="h-4.5 w-4.5 mr-3"/>
+            Start Summarization
           </span>
           <PropagateLoader color="#ffffff" id='summarizing-button-spinner' size={10} className='!hidden top-[-5px]' />
         </button>

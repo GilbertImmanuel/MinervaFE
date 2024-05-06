@@ -79,10 +79,9 @@ const Home = () => {
           </div>
         </div>
       </div>
-
-      <div className='relative'>
+      <div className='flex flex-col relative'>
         <img src="/src/assets/mainpages2.png" className='-top-96 absolute w-full'></img>
-        <div className="mx-auto max-w-5xl mt-14 text-white">
+        <div className="mx-auto max-w-5xl mt-14 text-white z-10">
           <h1 className="text-center text-3xl font-bold">About Summasphere</h1>
           <p className="text-justify mt-8">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Proin fermentum leo vel orci porta. Pulvinar elementum integer enim neque volutpat at tincidunt vitae semper. Amet consectetur adipiscing elit duis tristique. Nunc lobortis mattis aliquam faucibus purus. Quam nulla porttitor massa id neque aliquam vestibulum. In mollis nunc sed id. Arcu felis bibendum ut tristique et egestas quis. Lectus proin nibh nisl condimentum id venenatis a.
