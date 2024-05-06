@@ -23,7 +23,7 @@ const Home = () => {
             <h1 className="text-4xl montserrat font-bold text-white">Simplify Complexity with Artificial Intelligence</h1>
             <p className="mt-4 mb-2 monserrat text-white">Enjoy the ease and efficiency of gaining important insights with our tools</p>
           </div>
-          <main className="mx-auto flex-grow p-4 w-[40%] rounded-3xl">
+          <main className="flex-grow p-4 w-[40%] rounded-3xl w-full">
             {activeTab === 'summarizer' ? <Summarizer /> : <Analyzer />}
           </main>
         </div>
@@ -34,7 +34,7 @@ const Home = () => {
             <h1 className="text-4xl text-center">
               <span className="font-bold block">Summasphere, <span className="text-white">AI Based</span></span>
               <span className="text-blue-400">Text Summarizer and Document Analyzer</span>
-            </h1>  
+            </h1>
             <div className="grid grid-cols-2 gap-4 mt-14">
               <div className="flex items-center relative">
                 <div className="absolute inset-0 flex justify-center items-center">
@@ -48,7 +48,7 @@ const Home = () => {
                 <img src="/src/assets/aboutimage1.png" alt="About Image 1" className="relative z-10 w-84" />
               </div>
             </div>
-  
+
             <div className="grid grid-cols-2 gap-4 mt-14">
               <div className="flex justify-center items-center">
                 <img src="/src/assets/aboutimage2.png" alt="About Image 2" className="relative z-10 h-72" />
@@ -62,7 +62,7 @@ const Home = () => {
                 </div>
               </div>
             </div>
-   
+
             <div className="grid grid-cols-2 gap-4 mt-14">
               <div className="flex items-center relative">
                 <div className="absolute inset-0 flex justify-center items-center">
@@ -79,7 +79,7 @@ const Home = () => {
           </div>
         </div>
       </div>
-      
+
       <div className='relative'>
         <img src="/src/assets/mainpages2.png" className='-top-96 absolute w-full'></img>
         <div className="mx-auto max-w-5xl mt-14 text-white">
