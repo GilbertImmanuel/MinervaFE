@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-// import './index.css';
 
 const Analyzer = () => {
   const [file, setFile] = useState(null);
@@ -34,11 +33,11 @@ const Analyzer = () => {
             value={sourceUrl}
             onChange={handleSourceUrlChange}
             placeholder="www.sourcedocument.com"
-            className="w-full border p-2 rounded"
+            className="w-full border-2 p-2 rounded"
           />
         </div>
         <button
-          className="bg-blue-500 text-white py-2 px-4 rounded-2xl hover:bg-blue-600"
+          className="bg-blue-500 text-white font-semibold py-2 px-4 rounded-xl hover:bg-blue-600"
           onClick={handleProcessStart}
         >
           Start Process

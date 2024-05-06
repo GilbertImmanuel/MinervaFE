@@ -4,7 +4,7 @@ import UserNavbar from './navbar/UserNavbar';
 import logo from './assets/logo.png';
 
 const Header = () => {
-  const isLoggedIn = true;
+  const isLoggedIn = false;
   // const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   return (

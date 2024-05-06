@@ -23,7 +23,7 @@ const Home = () => {
             <h1 className="text-4xl montserrat font-bold text-white">Simplify Complexity with Artificial Intelligence</h1>
             <p className="mt-4 mb-2 monserrat text-white">Enjoy the ease and efficiency of gaining important insights with our tools</p>
           </div>
-          <main className="mx-auto flex-grow p-4 w-[40%] rounded-3xl">
+          <main className="mx-auto flex-grow p-4 w-[45%] rounded-3xl">
             {activeTab === 'summarizer' ? <Summarizer /> : <Analyzer />}
           </main>
         </div>
