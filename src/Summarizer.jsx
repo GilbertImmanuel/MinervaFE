@@ -1,3 +1,7 @@
+
+import axios from 'axios';
+import ReactMarkdown from 'react-markdown'
+import { PropagateLoader } from 'react-spinners';
 import React, { useState, useRef, useEffect } from 'react';
 import iconUpload from './assets/icons/iconupload.png';
 import iconSend from './assets/icons/iconsend.png';
@@ -6,6 +10,7 @@ const Summarizer = () => {
   const [inputText, setInputText] = useState('');
   const [summaryLength, setSummaryLength] = useState(512);
   const [file, setFile] = useState(null);
+  const [markdown, setMarkdown] = useState('')
   const textareaRef = useRef(null);
   const fileInputRef = useRef(null);
 
@@ -41,19 +46,58 @@ const Summarizer = () => {
     setSummaryLength(event.target.value);
   };
 
-  const handleSubmit = () => {
-    // Logic to process the text will go here
+  const handleSubmit = async () => {
+    document.getElementById('summarizer-result').classList.add('hidden');
+    document.getElementById('summarizing-button-text').classList.add('hidden');
+    document.getElementById('summarizing-button-spinner').classList.remove('!hidden');
+    document.getElementById('summarizing-button').setAttribute('disabled', true);
+
     console.log("Processing text: ", inputText);
     console.log("Summary length: ", summaryLength);
+
+    const url = 'http://localhost:3000/api/v1/summary';
+    const formData = new FormData();
+
+    formData.append('textInput', inputText);
+    formData.append('length', summaryLength);
+    formData.append('file', file);
+
+    const config = {
+      headers: {
+        'content-type': 'multipart/form-data'
+      }
+    }
+
+    let result = await axios.post(url, formData, config);
+    console.log("Result: ", result.data.summary)
+    await handleResponse(result);
   };
 
   const handleFileUpload = () => {
     fileInputRef.current.click();
   };
 
+  const handleResponse = async (result) => {
+    document.getElementById('summarizing-button-text').classList.remove('hidden');
+    document.getElementById('summarizing-button-spinner').classList.add('!hidden');
+    document.getElementById('summarizing-button').removeAttribute('disabled');
+
+    result.data.summary.replace(/\n/gi, '\n &nbsp;')
+
+    setMarkdown(result.data.summary)
+    const resultSection = document.getElementById('summarizer-result');
+    resultSection.classList.remove('hidden');
+    setTimeout(() => {
+      const element = document.getElementById('summarizer-result-label');
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    }, 100);
+  }
+
   return (
-    <div className="flex justify-center">
-      <section className="bg-white shadow-md rounded-3xl p-6 m-4 flex flex-col items-stretch w-full max-w-4xl">
+    <div className="flex justify-center flex-col">
+      <section className="mx-auto bg-white shadow-md rounded-3xl p-6 my-4 flex flex-col items-stretch w-[50%] max-w-4xl">
         <div className="flex items-center border-2 rounded-lg bg-white p-2 mb-2">
           <textarea
             ref={textareaRef}
@@ -72,7 +116,7 @@ const Summarizer = () => {
           onClick={handleFileUpload}
         >
           <div className="flex items-center">
-            <img src={iconUpload} alt="Upload" className="h-4.5 w-4.5 mr-3"/>
+            <img src={iconUpload} alt="Upload" className="h-4.5 w-4.5 mr-3" />
             <span className="text-gray-500">Upload pdf, csv, txt</span>
           </div>
           <input
@@ -100,12 +144,23 @@ const Summarizer = () => {
           }}
         />
         <button
-          className="bg-blue-500 text-white font-bold py-2 px-4 rounded-xl hover:bg-blue-600 flex items-center justify-center"
+          className="bg-blue-500 text-white py-2 px-4 rounded-2xl hover:bg-blue-600 min-h-[40px] flex justify-center items-center disabled:opacity-50 disabled:cursor-not-allowed"
+          id="summarizing-button"
           onClick={handleSubmit}
         >
-          <img src={iconSend} alt="Send" className="h-4.5 w-4.5 mr-3"/>
-          Start Summarization
+          <span id='summarizing-button-text' className='flex flex-row'>
+            <img src={iconSend} alt="Send" className="mr-3" width={24} height={18} />
+            Start Summarization
+          </span>
+          <PropagateLoader color="#ffffff" id='summarizing-button-spinner' size={10} className='!hidden top-[-5px]' />
         </button>
+      </section>
+
+      <section id="summarizer-result" className='hidden flex flex-col items-center'>
+        <h2 className='text-2xl montserrat font-bold text-white' id="summarizer-result-label">Summarized text results</h2>
+        <div className="bg-white shadow-md rounded-3xl p-6 m-4 flex flex-col items-stretch w-full max-w-4xl" id="summarizer-result-text">
+          <ReactMarkdown children={markdown} className="react-markdown-test" />
+        </div>
       </section>
     </div>
   );
