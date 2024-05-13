@@ -97,7 +97,7 @@ const Summarizer = () => {
 
   return (
     <div className="flex justify-center flex-col">
-      <section className="mx-auto bg-white shadow-md rounded-3xl p-6 my-4 flex flex-col items-stretch w-[50%] max-w-4xl">
+      <section className="mx-auto bg-white rounded-3xl p-6 my-4 flex flex-col items-stretch w-[50%] max-w-4xl" style={{ boxShadow: "0 6px 24px rgba(255, 255, 255, 0.5)" }}>
         <div className="flex items-center border-2 rounded-lg bg-white p-2 mb-2">
           <textarea
             ref={textareaRef}
@@ -144,7 +144,7 @@ const Summarizer = () => {
           }}
         />
         <button
-          className="bg-blue-500 text-white py-2 px-4 rounded-2xl hover:bg-blue-600 min-h-[40px] flex justify-center items-center disabled:opacity-50 disabled:cursor-not-allowed"
+          className="bg-gradient-to-bl from-[#7ED4EF] via-[#298BD0] to-[#0169C2] text-white text-lg font-bold py-2 px-4 rounded-2xl hover:bg-blue-600 min-h-[40px] flex justify-center items-center disabled:opacity-50 disabled:cursor-not-allowed"
           id="summarizing-button"
           onClick={handleSubmit}
         >

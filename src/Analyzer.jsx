@@ -1,11 +1,21 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
+import iconSend from './assets/icons/iconsend.png';
+import iconUpload from './assets/icons/iconupload.png';
+import iconLink from './assets/icons/iconlink.png';
 
 const Analyzer = () => {
   const [file, setFile] = useState(null);
   const [sourceUrl, setSourceUrl] = useState('');
+  const fileInputRef = useRef(null);
 
   const handleFileChange = (event) => {
-    setFile(event.target.files[0]);
+    const file = event.target.files[0];
+    const allowedTypes = ['application/pdf', 'text/csv', 'text/plain'];
+    if (allowedTypes.includes(file.type)) {
+      setFile(file);
+    } else {
+      alert('Please select a PDF, CSV, or TXT file.');
+    }
   };
 
   const handleSourceUrlChange = (event) => {
@@ -17,30 +27,52 @@ const Analyzer = () => {
     console.log("Source URL: ", sourceUrl);
   };
 
+  const handleFileUpload = () => {
+    fileInputRef.current.click();
+  };
+
   return (
     <div className="flex justify-center">
-      <section className="bg-white shadow-md rounded-3xl p-6 m-4 flex flex-col items-stretch w-full max-w-4xl">
-        <div className="mb-4">
-          <input
-            type="file"
-            onChange={handleFileChange}
-            className="w-full text-sm text-grey-500 file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-sm file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
-          />
-        </div>
-        <div className="mb-4">
+      <section className="bg-white rounded-3xl p-6 m-4 flex flex-col items-stretch w-[50%] max-w-4xl" style={{ boxShadow: "0 6px 24px rgba(255, 255, 255, 0.5)" }}>
+        <div className="flex items-center border-2 rounded-lg bg-white p-2 mb-2">
+          <div className="bg-white rounded-lg p-2">
+            <img src={iconLink} alt="Link" className="h-6 w-6" style={{ backgroundSize: 'auto' }} />
+          </div>
           <input
             type="text"
             value={sourceUrl}
             onChange={handleSourceUrlChange}
             placeholder="www.sourcedocument.com"
-            className="w-full border-2 p-2 rounded"
+            className="bg-white w-full focus:outline-none ml-3"
           />
         </div>
+        <div className="flex items-center justify-center mb-2">
+          <p className="text-black text-m">or</p>
+        </div>
+        <div
+          className="flex items-center justify-center border-2 rounded-lg bg-white p-2 mb-4 cursor-pointer"
+          onClick={handleFileUpload}
+        >
+          <div className="flex items-center">
+            <img src={iconUpload} alt="Upload" className="h-4.5 w-4.5 mr-3" style={{ backgroundSize: 'auto', backgroundColor: 'transparent' }} />
+            <span className="text-gray-500">Upload pdf, csv, txt</span>
+          </div>
+          <input
+            ref={fileInputRef}
+            type="file"
+            onChange={handleFileChange}
+            accept=".pdf,.csv,.txt"
+            className="hidden"
+          />
+        </div>
+        {/* <div className="relative flex items-center justify-between border-t-2 border-[#0B001A] pb-4 text-white"></div> */}
+        <hr class="relative flex justify-center w-[99%] h-1 mx-auto bg-gray-300 border-0 rounded md:mb-4 dark:bg-gray-300"></hr>
         <button
-          className="bg-blue-500 text-white font-semibold py-2 px-4 rounded-xl hover:bg-blue-600"
+          className="bg-gradient-to-bl from-[#7ED4EF] via-[#298BD0] to-[#0169C2] text-white text-lg font-bold py-2 px-4 rounded-xl hover:bg-blue-600 flex items-center justify-center"
           onClick={handleProcessStart}
         >
-          Start Process
+          <img src={iconSend} alt="Send" className="mr-3" width={24} height={18} style={{ backgroundSize: 'auto' }} />
+          Start Analyzing
         </button>
       </section>
     </div>
