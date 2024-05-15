@@ -65,7 +65,6 @@ const Analyzer = () => {
             className="hidden"
           />
         </div>
-        {/* <div className="relative flex items-center justify-between border-t-2 border-[#0B001A] pb-4 text-white"></div> */}
         <hr class="relative flex justify-center w-[99%] h-1 mx-auto bg-gray-300 border-0 rounded md:mb-4 dark:bg-gray-300"></hr>
         <button
           className="bg-gradient-to-bl from-[#7ED4EF] via-[#298BD0] to-[#0169C2] text-white text-lg font-bold py-2 px-4 rounded-xl hover:bg-blue-600 flex items-center justify-center"
@@ -75,6 +74,26 @@ const Analyzer = () => {
           Start Analyzing
         </button>
       </section>
+
+      {/* <section id="analyzer-result" className="hidden flex flex-col items-center">
+        <h2 className="text-2xl montserrat font-bold text-white" id="analyzer-result-label">
+          Analyzed document results
+        </h2>
+        <div
+          className="bg-white shadow-md rounded-3xl p-6 m-4 flex flex-col items-stretch w-full max-w-4xl"
+          id="analyzer-result-text"
+        ></div>
+      </section>
+
+      <div className="flex justify-center w-full max-w-4xl">
+        <div className="w-1/2 mr-4">
+          <div className="bg-white rounded-lg p-4"></div>
+        </div>
+        <div className="w-1/2 ml-4 flex flex-col">
+          <div className="bg-white rounded-lg p-4 mb-4 h-1/2"></div>
+          <div className="bg-white rounded-lg p-4 mt-4 h-1/2"></div>
+        </div>
+      </div> */}
     </div>
   );
 };
