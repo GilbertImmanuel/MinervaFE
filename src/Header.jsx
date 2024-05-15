@@ -38,7 +38,7 @@ const Header = ({ activeTab }) => {
           </svg>
         </button>
         {isMenuOpen && (
-          <div className="absolute top-12 left-0 w-72 h-[400px] rounded-lg bg-white bg-opacity-95 z-20 overflow-auto" onClick={toggleMenu}>
+          <div className="absolute top-12 left-0 w-72 h-[600px] rounded-lg bg-white bg-opacity-95 z-20 overflow-auto" onClick={toggleMenu}>
             <div className="text-black font-bold text-l mb-1 px-4 pt-4">HISTORY</div>
             <hr class="relative flex justify-center w-[90%] h-[2px] mx-auto bg-black border-0 rounded md:mb-4 dark:black"></hr>
             {renderMenuContent()}

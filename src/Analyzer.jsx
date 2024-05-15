@@ -7,6 +7,7 @@ const Analyzer = () => {
   const [file, setFile] = useState(null);
   const [sourceUrl, setSourceUrl] = useState('');
   const fileInputRef = useRef(null);
+  const [analyzeLength, setAnalyzeLength] = useState(3);
 
   const handleFileChange = (event) => {
     const file = event.target.files[0];
@@ -22,13 +23,22 @@ const Analyzer = () => {
     setSourceUrl(event.target.value);
   };
 
+  const handleFileUpload = () => {
+    fileInputRef.current.click();
+  };
+
+  const handleLengthChange = (event) => {
+    const value = parseInt(event.target.value);
+    if (value < 9) {
+      setAnalyzeLength(value);
+    } else {
+      setAnalyzeLength(10);
+    }
+  };
+
   const handleProcessStart = () => {
     console.log("File to process: ", file);
     console.log("Source URL: ", sourceUrl);
-  };
-
-  const handleFileUpload = () => {
-    fileInputRef.current.click();
   };
 
   return (
@@ -65,7 +75,23 @@ const Analyzer = () => {
             className="hidden"
           />
         </div>
-        <hr class="relative flex justify-center w-[99%] h-1 mx-auto bg-gray-300 border-0 rounded md:mb-4 dark:bg-gray-300"></hr>
+        {/* <hr class="relative flex justify-center w-[99%] h-1 mx-auto bg-gray-300 border-0 rounded md:mb-4 dark:bg-gray-300"></hr> */}
+        <label htmlFor="lengthRange" className="text-sm font-medium text-gray-900 dark:text-gray-300">
+          Analyze Length: {analyzeLength}
+        </label>
+        <input
+          id="lengthRange"
+          className="range range-primary mb-4"
+          type="range"
+          min="3"
+          max="11"
+          step="2"
+          value={analyzeLength === 9 ? 10 : analyzeLength}
+          onChange={handleLengthChange}
+          style={{
+            backgroundSize: `${((analyzeLength - 3) / (11 - 3)) * 100}% 100%` // Adjust backgroundSize calculation
+          }}
+        />
         <button
           className="bg-gradient-to-bl from-[#7ED4EF] via-[#298BD0] to-[#0169C2] text-white text-lg font-bold py-2 px-4 rounded-xl hover:bg-blue-600 flex items-center justify-center"
           onClick={handleProcessStart}
