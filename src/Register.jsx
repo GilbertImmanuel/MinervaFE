@@ -85,9 +85,9 @@ const Register = () => {
               </button>
             </div>
             <div className="flex items-center justify-center mb-3">
-              <div className="text-center text-sm text-gray-600">
-                or
-              </div>
+              <div className="flex-1 border-t border-gray-300"></div>
+              <div className="px-3 text-center text-sm text-gray-600">or</div>
+              <div className="flex-1 border-t border-gray-300"></div>
             </div>
             {/* Google Register Button */}
             <div className="flex items-center justify-center mb-6">

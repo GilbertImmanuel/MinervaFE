@@ -57,7 +57,9 @@ const Analyzer = () => {
           />
         </div>
         <div className="flex items-center justify-center mb-2">
-          <p className="text-black text-m">or</p>
+          <div className="flex-1 border-t-2 ml-4 mr-1 border-gray-300"></div>
+          <p className="px-3 text-black text-m">or</p>
+          <div className="flex-1 border-t-2 ml-1 mr-4 border-gray-300"></div>
         </div>
         <div
           className="flex items-center justify-center border-2 rounded-lg bg-white p-2 mb-4 cursor-pointer"
@@ -77,7 +79,7 @@ const Analyzer = () => {
         </div>
         {/* <hr class="relative flex justify-center w-[99%] h-1 mx-auto bg-gray-300 border-0 rounded md:mb-4 dark:bg-gray-300"></hr> */}
         <label htmlFor="lengthRange" className="text-sm font-medium text-gray-900 dark:text-gray-300">
-          Analyze Length: {analyzeLength}
+          Topics Count: {analyzeLength}
         </label>
         <input
           id="lengthRange"

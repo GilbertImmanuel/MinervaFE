@@ -109,7 +109,9 @@ const Summarizer = () => {
           />
         </div>
         <div className="flex items-center justify-center mb-2">
-          <p className="text-black text-m">or</p>
+          <div className="flex-1 border-t-2 ml-4 mr-1 border-gray-300"></div>
+          <p className="px-3 text-black text-m">or</p>
+          <div className="flex-1 border-t-2 ml-1 mr-4 border-gray-300"></div>
         </div>
         <div
           className="flex items-center justify-center border-2 rounded-lg bg-white p-2 mb-4 cursor-pointer"
@@ -128,7 +130,7 @@ const Summarizer = () => {
           />
         </div>
         <label htmlFor="lengthRange" className="text-sm font-medium text-gray-900 dark:text-gray-300">
-          Length: {summaryLength}
+          Summarization Length: {summaryLength}
         </label>
         <input
           id="lengthRange"

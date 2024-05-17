@@ -9,7 +9,7 @@ const Home = () => {
   const [activeTab, setActiveTab] = useState('summarizer');
 
   return (
-    <div className="min-h-screen flex flex-col relative bg-gradient-to-br from-[#0B001A] to-[#334155]">
+    <div className="min-h-screen flex flex-col relative bg-gradient-to-br from-[#0B001A] to-[#0A2A43]">
       <img src="/src/assets/mainpages.png" className='-top-12 absolute w-full z-10'></img>
       <Header />
       <div className="w-full min-h-[calc(100vh_-_74px)] z-10">
@@ -28,7 +28,7 @@ const Home = () => {
           </main>
         </div>
       </div>
-      <div className='relative mx-auto max-w-6xl'>
+      <div className='relative mx-auto max-w-6xl help-section'>
         <div className="bg-gradient-to-bl from-[#7ED4EF]/25 via-[#298BD0]/25 to-[#0169C2]/25 text-white rounded-3xl p-4 relative">
           <div className="mx-16 my-7">
             <h1 className="text-4xl text-center">
@@ -37,8 +37,8 @@ const Home = () => {
             </h1>
             <div className="grid grid-cols-2 gap-4 mt-14">
               <div className="flex items-center relative">
-                <div className="absolute inset-0 flex justify-center items-center">
-                  <div className="text-9xl text-opacity-50 text-white">01</div>
+                <div className="absolute inset-0 flex items-center">
+                  <div className="text-9xl text-opacity-20 text-white">01</div>
                 </div>
                 <div className="text-2xl relative z-10 flex items-center">
                   <p>You can select features by switching to the summarizer or analyzer.</p>
@@ -54,8 +54,8 @@ const Home = () => {
                 <img src="/src/assets/aboutimage2.png" alt="About Image 2" className="relative z-10 h-72" />
               </div>
               <div className="flex items-center relative">
-                <div className="absolute inset-0 flex justify-center items-center">
-                  <div className="text-9xl text-opacity-50 text-white">02</div>
+                <div className="absolute inset-0 flex items-center">
+                  <div className="text-9xl text-opacity-20 text-white">02</div>
                 </div>
                 <div className="text-2xl relative z-10 flex items-center ml-5">
                   <p>You can input text or upload a PDF document and click Start.</p>
@@ -65,8 +65,8 @@ const Home = () => {
 
             <div className="grid grid-cols-2 gap-4 mt-14">
               <div className="flex items-center relative">
-                <div className="absolute inset-0 flex justify-center items-center">
-                  <div className="text-9xl text-opacity-50 text-white">03</div>
+                <div className="absolute inset-0 flex items-center">
+                  <div className="text-9xl text-opacity-20 text-white">03</div>
                 </div>
                 <div className="text-2xl relative z-10 flex items-center">
                   <p>Summasphere will automatically summarize the text you input or the document you upload.</p>
@@ -79,17 +79,17 @@ const Home = () => {
           </div>
         </div>
       </div>
-      <div className='flex flex-col relative'>
+      <div className='flex flex-col relative about-section'>
         <img src="/src/assets/mainpages2.png" className='-top-96 absolute w-full'></img>
         <div className="mx-auto max-w-5xl mt-14 text-white z-10">
-          <h1 className="text-center text-3xl font-bold">About Summasphere</h1>
-          <p className="text-justify mt-8">
+          <h1 className="text-center text-4xl font-bold">About Summasphere</h1>
+          <p className="text-justify text-xl mt-8">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Proin fermentum leo vel orci porta. Pulvinar elementum integer enim neque volutpat at tincidunt vitae semper. Amet consectetur adipiscing elit duis tristique. Nunc lobortis mattis aliquam faucibus purus. Quam nulla porttitor massa id neque aliquam vestibulum. In mollis nunc sed id. Arcu felis bibendum ut tristique et egestas quis. Lectus proin nibh nisl condimentum id venenatis a.
           </p>
-          <p className="text-justify mt-4">
+          <p className="text-justify text-xl mt-4">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Proin fermentum leo vel orci porta. Pulvinar elementum integer enim neque volutpat at tincidunt vitae semper. Amet consectetur adipiscing elit duis tristique. Nunc lobortis mattis aliquam faucibus purus. Quam nulla porttitor massa id neque aliquam vestibulum. In mollis nunc sed id. Arcu felis bibendum ut tristique et egestas quis. Lectus proin nibh nisl condimentum id venenatis a.
           </p>
-          <p className="text-justify mt-4">
+          <p className="text-justify text-xl mt-4">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Proin fermentum leo vel orci porta. Pulvinar elementum integer enim neque volutpat at tincidunt vitae semper. Amet consectetur adipiscing elit duis tristique. Nunc lobortis mattis aliquam faucibus purus. Quam nulla porttitor massa id neque aliquam vestibulum. In mollis nunc sed id. Arcu felis bibendum ut tristique et egestas quis. Lectus proin nibh nisl condimentum id venenatis a.
           </p>
         </div>
