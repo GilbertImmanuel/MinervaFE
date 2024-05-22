@@ -2,6 +2,8 @@ import React, { useState, useRef } from 'react';
 import iconSend from './assets/icons/iconsend.png';
 import iconUpload from './assets/icons/iconupload.png';
 import iconLink from './assets/icons/iconlink.png';
+import WordCloud from './WordCloud';
+import TopicDistribution from './TopicDistribution';
 
 const Analyzer = () => {
   const [file, setFile] = useState(null);
@@ -42,7 +44,7 @@ const Analyzer = () => {
   };
 
   return (
-    <div className="flex justify-center">
+    <div className="flex justify-center flex-col items-center">
       <section className="bg-white rounded-3xl p-6 m-4 flex flex-col items-stretch w-[50%] max-w-4xl" style={{ boxShadow: "0 6px 24px rgba(255, 255, 255, 0.5)" }}>
         <div className="flex items-center border-2 rounded-lg bg-white p-2 mb-2">
           <div className="bg-white rounded-lg p-2">
@@ -103,7 +105,7 @@ const Analyzer = () => {
         </button>
       </section>
 
-      {/* <section id="analyzer-result" className="hidden flex flex-col items-center">
+      {/* <section id="analyzer-result" className="flex flex-col items-center">
         <h2 className="text-2xl montserrat font-bold text-white" id="analyzer-result-label">
           Analyzed document results
         </h2>
@@ -111,17 +113,21 @@ const Analyzer = () => {
           className="bg-white shadow-md rounded-3xl p-6 m-4 flex flex-col items-stretch w-full max-w-4xl"
           id="analyzer-result-text"
         ></div>
-      </section>
+      </section> */}
 
-      <div className="flex justify-center w-full max-w-4xl">
-        <div className="w-1/2 mr-4">
-          <div className="bg-white rounded-lg p-4"></div>
+      <div className="flex justify-center w-full max-w-4xl h-[1000px]">
+        <div className="w-1/2 mr-4 h-full">
+          <div className="bg-white rounded-lg p-4 h-full">
+            <TopicDistribution />
+          </div>
         </div>
         <div className="w-1/2 ml-4 flex flex-col">
-          <div className="bg-white rounded-lg p-4 mb-4 h-1/2"></div>
-          <div className="bg-white rounded-lg p-4 mt-4 h-1/2"></div>
+          <div className="bg-white rounded-lg p-4 mb-4 h-1/2">LDA</div>
+          <div className="bg-white rounded-lg p-4 mt-4 h-1/2">
+            <WordCloud />
+          </div>
         </div>
-      </div> */}
+      </div>
     </div>
   );
 };
