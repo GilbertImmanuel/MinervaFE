@@ -2,13 +2,46 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import googleIcon from './assets/googleIcon.png';
 import logo from './assets/logo.png'; // Ensure this is the correct path to your logo file
+import axios from 'axios';
+
+import { toast } from 'react-toastify';
 
 const Login = () => {
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleLogin = async () => {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    };
+
+    // request json body
+    const requestBody = {
+      email: document.getElementById('email').value,
+      password: document.getElementById('password').value
+    }
+
+    const response = await axios.post('http://localhost:3000/api/v1/auth/email/login', requestBody, config).catch((error) => {
+      switch (error.response.data.status) {
+        case 'error':
+          toast.error((error.response.data.message) ? error.response.data.message : (error.response.statusText) ? error.response.statusText : 'An unexpected error occurred');
+          break;
+        default:
+      }
+    });
+
+    if (response && response.data && response.data.token) {
+      localStorage.setItem('accessToken', response.data.accessToken);
+      localStorage.setItem('refreshToken', response.data.refreshToken);
+      navigate('/');
+    }
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    navigate('/'); // Redirect to the home page
+    await handleLogin();
+    // navigate('/'); // Redirect to the home page
   };
 
   const handleRegisterNowClick = (e) => {

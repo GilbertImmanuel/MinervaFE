@@ -1,15 +1,32 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import iconSend from './assets/icons/iconsend.png';
 import iconUpload from './assets/icons/iconupload.png';
 import iconLink from './assets/icons/iconlink.png';
 import WordCloud from './WordCloud';
 import TopicDistribution from './TopicDistribution';
+import { PropagateLoader } from 'react-spinners';
+import axios from 'axios';
+
+import { toast } from 'react-toastify';
 
 const Analyzer = () => {
   const [file, setFile] = useState(null);
   const [sourceUrl, setSourceUrl] = useState('');
   const fileInputRef = useRef(null);
   const [analyzeLength, setAnalyzeLength] = useState(3);
+  const [sampleData, setSampleData] = useState(null);
+
+  const toggleButtonLoading = (isLoading = true) => {
+    if (isLoading) {
+      document.getElementById('analyzing-button-text').classList.add('hidden');
+      document.getElementById('analyzing-button-spinner').classList.remove('!hidden');
+      document.getElementById('analyzing-button').setAttribute('disabled', true);
+    } else {
+      document.getElementById('analyzing-button-text').classList.remove('hidden');
+      document.getElementById('analyzing-button-spinner').classList.add('!hidden');
+      document.getElementById('analyzing-button').removeAttribute('disabled');
+    }
+  }
 
   const handleFileChange = (event) => {
     const file = event.target.files[0];
@@ -38,10 +55,52 @@ const Analyzer = () => {
     }
   };
 
-  const handleProcessStart = () => {
+  const handleSubmit = async () => {
+    toggleButtonLoading(true);
+
     console.log("File to process: ", file);
     console.log("Source URL: ", sourceUrl);
+
+    const url = 'http://localhost:3000/api/v1/analyzer';
+    const formData = new FormData();
+
+    formData.append('urlInput', sourceUrl);
+
+    // sementara, Backend salah
+    formData.append('analyzeLength', analyzeLength);
+    formData.append('file', file);
+
+    const config = {
+      headers: {
+        'content-type': 'multipart/form-data'
+      }
+    }
+
+    let result = await axios.post(url, formData, config).catch((error) => {
+      toast.error(error.response.data.message);
+      toggleButtonLoading(false);
+    });
+
+    await handleResponse(result);
   };
+
+  const handleResponse = async (response) => {
+    // if (response && response.data) {
+    //   document.getElementById('summarizer-result-text').innerText = response.data.summary;
+    //   document.getElementById('summarizer-result').classList.remove('hidden');
+    // }
+
+    setSampleData(response.data.data.wordcloud);
+
+    console.log("Result: ", response)
+    console.log(response.data.data.wordcloud)
+    console.log("Sample Data: ", sampleData)
+    toggleButtonLoading(false);
+  }
+
+  useEffect(() => {
+    console.log("Sample Data: ", sampleData);
+  }, [sampleData]); // This effect runs whenever `sampleData` changes
 
   return (
     <div className="flex justify-center flex-col items-center">
@@ -97,11 +156,15 @@ const Analyzer = () => {
           }}
         />
         <button
-          className="bg-gradient-to-bl from-[#7ED4EF] via-[#298BD0] to-[#0169C2] text-white text-lg font-bold py-2 px-4 rounded-xl hover:bg-blue-600 flex items-center justify-center"
-          onClick={handleProcessStart}
+          id="analyzing-button"
+          className="bg-gradient-to-bl from-[#7ED4EF] via-[#298BD0] to-[#0169C2] text-white text-lg font-bold py-2 px-4 rounded-2xl hover:bg-blue-600 min-h-[40px] flex justify-center items-center disabled:opacity-50 disabled:cursor-not-allowed"
+          onClick={handleSubmit}
         >
-          <img src={iconSend} alt="Send" className="mr-3" width={24} height={18} style={{ backgroundSize: 'auto' }} />
-          Start Analyzing
+          <span id='analyzing-button-text' className='flex flex-row'>
+            <img src={iconSend} alt="Send" className="mr-3" width={24} height={18} style={{ backgroundSize: 'auto' }} />
+            Start Analyzing
+          </span>
+          <PropagateLoader color="#ffffff" id='analyzing-button-spinner' size={10} className='!hidden top-[-5px]' />
         </button>
       </section>
 
@@ -124,7 +187,8 @@ const Analyzer = () => {
         <div className="w-1/2 ml-4 flex flex-col">
           <div className="bg-white rounded-lg p-4 mb-4 h-1/2">LDA</div>
           <div className="bg-white rounded-lg p-4 mt-4 h-1/2">
-            <WordCloud />
+            {/* <WordCloud {/> */}
+            <WordCloud sampleData={sampleData} />
           </div>
         </div>
       </div>

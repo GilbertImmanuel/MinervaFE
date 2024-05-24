@@ -1,10 +1,11 @@
-
 import axios from 'axios';
 import ReactMarkdown from 'react-markdown'
 import { PropagateLoader } from 'react-spinners';
 import React, { useState, useRef, useEffect } from 'react';
 import iconUpload from './assets/icons/iconupload.png';
 import iconSend from './assets/icons/iconsend.png';
+
+import { toast } from 'react-toastify';
 
 const Summarizer = () => {
   const [inputText, setInputText] = useState('');
@@ -32,6 +33,19 @@ const Summarizer = () => {
     setInputText(event.target.value);
   };
 
+  const toggleButtonLoading = (isLoading = true) => {
+    if (isLoading) {
+      document.getElementById('summarizer-result').classList.add('hidden');
+      document.getElementById('summarizing-button-text').classList.add('hidden');
+      document.getElementById('summarizing-button-spinner').classList.remove('!hidden');
+      document.getElementById('summarizing-button').setAttribute('disabled', true);
+    } else {
+      document.getElementById('summarizing-button-text').classList.remove('hidden');
+      document.getElementById('summarizing-button-spinner').classList.add('!hidden');
+      document.getElementById('summarizing-button').removeAttribute('disabled');
+    }
+  }
+
   const handleFileChange = (event) => {
     const file = event.target.files[0];
     const allowedTypes = ['application/pdf', 'text/csv', 'text/plain'];
@@ -47,11 +61,7 @@ const Summarizer = () => {
   };
 
   const handleSubmit = async () => {
-    document.getElementById('summarizer-result').classList.add('hidden');
-    document.getElementById('summarizing-button-text').classList.add('hidden');
-    document.getElementById('summarizing-button-spinner').classList.remove('!hidden');
-    document.getElementById('summarizing-button').setAttribute('disabled', true);
-
+    toggleButtonLoading(true);
     console.log("Processing text: ", inputText);
     console.log("Summary length: ", summaryLength);
 
@@ -59,8 +69,8 @@ const Summarizer = () => {
     const formData = new FormData();
 
     formData.append('textInput', inputText);
-    formData.append('length', summaryLength);
     formData.append('file', file);
+    formData.append('length', summaryLength);
 
     const config = {
       headers: {
@@ -68,7 +78,11 @@ const Summarizer = () => {
       }
     }
 
-    let result = await axios.post(url, formData, config);
+    let result = await axios.post(url, formData, config).catch((error) => {
+      toast.error(error.response.data.message);
+      toggleButtonLoading(false);
+    });
+
     console.log("Result: ", result.data.summary)
     await handleResponse(result);
   };
@@ -78,13 +92,11 @@ const Summarizer = () => {
   };
 
   const handleResponse = async (result) => {
-    document.getElementById('summarizing-button-text').classList.remove('hidden');
-    document.getElementById('summarizing-button-spinner').classList.add('!hidden');
-    document.getElementById('summarizing-button').removeAttribute('disabled');
+    toggleButtonLoading(false);
+    let data = result.data.data.summary;
+    data.replace(/\n/gi, '\n &nbsp;')
 
-    result.data.summary.replace(/\n/gi, '\n &nbsp;')
-
-    setMarkdown(result.data.summary)
+    setMarkdown(data)
     const resultSection = document.getElementById('summarizer-result');
     resultSection.classList.remove('hidden');
     setTimeout(() => {

@@ -26,6 +26,10 @@ const UserNavbar = () => {
     }
   };
 
+  const handleLogoutClick = () => {
+    navigate('/logout');
+  }
+
   return (
     <div className="flex flex-row items-center">
       <button
@@ -45,6 +49,12 @@ const UserNavbar = () => {
         className="ml-2 text-white py-2 px-4 rounded bg-transparent border border-transparent hover:bg-white hover:text-blue-500"
       >
         About
+      </button>
+      <button
+        onClick={handleLogoutClick}
+        className="ml-2 text-white py-2 px-4 rounded bg-transparent border border-transparent hover:bg-white hover:text-blue-500"
+      >
+        Logout
       </button>
       <div className="ml-2 w-10 h-10 flex justify-center items-center rounded-full border-2 border-white">
         <span className="text-white text-sm">MM</span>

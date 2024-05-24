@@ -4,7 +4,7 @@ import UserNavbar from './navbar/UserNavbar';
 import logo from './assets/logo.png';
 
 const Header = ({ activeTab }) => {
-  const isLoggedIn = true;
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const menuRef = useRef(null);
   const hamburgerRef = useRef(null);
@@ -32,6 +32,8 @@ const Header = ({ activeTab }) => {
   };
 
   useEffect(() => {
+    setIsLoggedIn(localStorage.getItem('accessToken') != null);
+
     document.addEventListener('mousedown', handleClickOutside);
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
@@ -53,7 +55,7 @@ const Header = ({ activeTab }) => {
   };
 
   return (
-    <header className="text-white p-4 flex justify-between items-center bg-[#333333] bg-opacity-40 z-50 sticky top-0 left-0">
+    <header className="text-white p-4 flex justify-between items-center bg-[#333333] bg-opacity-40 z-10 sticky top-0 left-0">
       <div className="flex items-center relative">
         <button ref={hamburgerRef} className="mr-4" onClick={toggleMenu}>
           <svg
@@ -70,9 +72,8 @@ const Header = ({ activeTab }) => {
         </button>
         <div
           ref={menuRef}
-          className={`absolute top-[56px] left-0 w-72 h-[600px] rounded-lg bg-white bg-opacity-95 z-20 overflow-auto transition-all duration-300 transform ${
-            isMenuOpen ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-10 pointer-events-none'
-          }`}
+          className={`absolute top-[56px] left-0 w-72 h-[600px] rounded-lg bg-white bg-opacity-95 z-20 overflow-auto transition-all duration-300 transform ${isMenuOpen ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-10 pointer-events-none'
+            }`}
           onClick={handleMenuClick}
         >
           <div className="text-black font-bold text-l mb-1 px-4 pt-4">HISTORY</div>
@@ -89,7 +90,7 @@ const Header = ({ activeTab }) => {
           onClick={handleHomeClick}
           className="text-xl cursor-pointer select-none"
         >
-        Summasphere
+          Summasphere
         </h1>
       </div>
       <nav>

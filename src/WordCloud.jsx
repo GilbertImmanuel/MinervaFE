@@ -32,59 +32,62 @@ ChartJS.register(WordElement, WordCloudController);
 //   "roast": 5,
 // }
 
-const sampleData = {
-"user": 55,
-"system": 54,
-"data": 45,
-"target": 44,
-"effective": 43,
-"uis": 41,
-"touch": 38,
-"technique": 38,
-"perceived": 37,
-"effect": 35,
-"direction": 35,
-"task": 34,
-"interaction": 34,
-"performance": 32,
-"study": 32,
-"time": 30,
-"perception": 29,
-"significant": 24,
-"likability": 24,
-"mhealth": 23,
-"usability": 23,
-"app": 23,
-"using": 22,
-"mobile": 21,
-"input": 19,
-"mean": 18,
-"participant": 18,
-"design": 17,
-"theory": 17,
-"completion": 17,
-"result": 17,
-"figure": 17,
-"type": 17,
-"transparent": 17,
-"based": 16,
+const dummyData = {
+  "user": 55,
+  "system": 54,
+  "data": 45,
+  "target": 44,
+  "effective": 43,
+  "uis": 41,
+  "touch": 38,
+  "technique": 38,
+  "perceived": 37,
+  "effect": 35,
+  "direction": 35,
+  "task": 34,
+  "interaction": 34,
+  "performance": 32,
+  "study": 32,
+  "time": 30,
+  "perception": 29,
+  "significant": 24,
+  "likability": 24,
+  "mhealth": 23,
+  "usability": 23,
+  "app": 23,
+  "using": 22,
+  "mobile": 21,
+  "input": 19,
+  "mean": 18,
+  "participant": 18,
+  "design": 17,
+  "theory": 17,
+  "completion": 17,
+  "result": 17,
+  "figure": 17,
+  "type": 17,
+  "transparent": 17,
+  "based": 16,
 };
 
-const sampleKeys = Object.keys(sampleData);
-const sampleValues = Object.values(sampleData);
+const WordCloud = ({ sampleData }) => {
+  if (!sampleData)
+    sampleData = dummyData;
 
-const mini = Math.min(...sampleValues);
-const maxi = Math.max(...sampleValues);
-const normalized = sampleValues.map((value) => (value-mini)/(maxi-mini) * 80 + 10);
+  const sampleKeys = Object.keys(sampleData);
+  const sampleValues = Object.values(sampleData);
 
-const data = {
-  labels: sampleKeys,
-  data: sampleValues,
-  colors: sampleValues.map((_) => colors[Math.floor(Math.random() * 100)][Math.floor(Math.random() * 5)]),
-  sizes: normalized,
-};
+  const mini = Math.min(...sampleValues);
+  const maxi = Math.max(...sampleValues);
+  const normalized = sampleValues.map((value) => (value - mini) / (maxi - mini) * 80 + 10);
 
-const WordCloud = () => {
+  const data = {
+    labels: sampleKeys,
+    data: sampleValues,
+    colors: sampleValues.map((_) => colors[Math.floor(Math.random() * 100)][Math.floor(Math.random() * 5)]),
+    sizes: normalized,
+  };
+
   const chartData = {
     labels: data.labels,
     datasets: [{

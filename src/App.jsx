@@ -7,6 +7,7 @@ import Home from './Home';
 import Login from './Login';
 import Register from './Register';
 import ForgetPassword from './ForgetPassword';
+import Logout from './Logout';
 
 const App = () => {
   const [activeTab, setActiveTab] = useState('summarizer');
@@ -22,6 +23,7 @@ const App = () => {
         } /> */}
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/logout" element={<Logout />} />
         <Route path="/register" element={<Register />} />
         <Route path="/forgetpassword" element={<ForgetPassword />} />
         {/* Define other routes as needed */}
