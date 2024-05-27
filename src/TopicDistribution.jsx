@@ -8,6 +8,7 @@ import {
   Legend,
 } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
+import colors from './constants/colors';
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
@@ -134,60 +135,51 @@ const sampleData = {
   }
 };
 
-const topic0 = Object.values(sampleData)[0];
-const label0 = Object.keys(topic0);
-const probability0 = Object.values(topic0);
+const topics = Object.values(sampleData);
 
-const topic1 = Object.values(sampleData)[1];
-const label1 = Object.keys(topic0);
-const probability1 = Object.values(topic0);
 
-console.log(topic0);
-
-// DO NOT TOUCH
 const TopicDistribution = () => {
-  const chartData = {
-    labels: label0,
-    datasets: [
-    {
-      data: probability0,
-      backgroundColor: [
-        'rgba(255, 99, 132, 0.2)',
-        'rgba(255, 99, 132, 0.2)',
-        'rgba(255, 99, 132, 0.2)',
-        'rgba(255, 205, 86, 0.2)',
-        'rgba(255, 205, 86, 0.2)',
-        'rgba(255, 205, 86, 0.2)',
-        'rgba(153, 102, 255, 0.2)',
-        'rgba(153, 102, 255, 0.2)',
-        'rgba(153, 102, 255, 0.2)',
-        'rgba(153, 102, 255, 0.2)',
-      ]
-    }],
-  }
-
-  const options = {
-    indexAxis: "y",
-    elements: {
-      bar: {
-        borderWidth: 2,
-      },
-    },
-    responsive: true,
-    plugins: {
-      legend: {
-        display: false,
-      },
-      title: {
-        display: true,
-        text: "Topic Distribution",
-      },
-    },
-  };
-
   return (
-    <div>
-      <Bar data={chartData} options={options} />
+    <div className="w-full flex flex-wrap justify-around">
+      {topics.map((topic, index) => {
+        const probs = Object.values(topic);
+        const labels = Object.keys(topic);
+        const color = colors[Math.floor(Math.random() * 100)][Math.floor(Math.random() * 5)];
+
+        const chartData = {
+          labels: [labels[0], labels[1], labels[2]],
+          datasets: [{
+            data: [probs[0], probs[1], probs[2]],
+            backgroundColor: [color, color, color],
+          }],
+        }
+
+        const options = {
+          indexAxis: "y",
+          elements: {
+            bar: {
+              borderWidth: 2,
+            },
+          },
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              display: false,
+            },
+            title: {
+              display: true,
+              text: `Topic ${index+1}`,
+            },
+          },
+        };
+
+        return (
+          <div key={index} style={{ "flex": `1 0 ${100 / topics.length}%`}}>
+            <Bar data={chartData} options={options} />
+          </div>
+        );
+      })}
     </div>
   );
 }
