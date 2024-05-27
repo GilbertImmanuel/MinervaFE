@@ -2,19 +2,18 @@ import axios from 'axios';
 import ReactMarkdown from 'react-markdown'
 import { PropagateLoader } from 'react-spinners';
 import React, { useState, useRef, useEffect } from 'react';
-import iconUpload from './assets/icons/iconupload.png';
+import iconLink from './assets/icons/iconlink.png';
 import iconSend from './assets/icons/iconsend.png';
 
 import { toast } from 'react-toastify';
 
 const Summarizer = () => {
   const [inputText, setInputText] = useState('');
-  const [summaryLength, setSummaryLength] = useState(512);
-  const [file, setFile] = useState(null);
+  const [sourceUrl, setSourceUrl] = useState('');
   const [markdown, setMarkdown] = useState('')
   const textareaRef = useRef(null);
-  const fileInputRef = useRef(null);
-
+  const [isBasic, setIsBasic] = useState(true);
+  
   useEffect(() => {
     const handleResize = () => {
       const textarea = textareaRef.current;
@@ -46,31 +45,16 @@ const Summarizer = () => {
     }
   }
 
-  const handleFileChange = (event) => {
-    const file = event.target.files[0];
-    const allowedTypes = ['application/pdf', 'text/csv', 'text/plain'];
-    if (allowedTypes.includes(file.type)) {
-      setFile(file);
-    } else {
-      alert('Please select a PDF, CSV, or TXT file.');
-    }
-  };
-
-  const handleLengthChange = (event) => {
-    setSummaryLength(event.target.value);
-  };
-
   const handleSubmit = async () => {
     toggleButtonLoading(true);
     console.log("Processing text: ", inputText);
-    console.log("Summary length: ", summaryLength);
+    console.log("Source URL: ", sourceUrl);
 
     const url = 'http://localhost:3000/api/v1/summary';
     const formData = new FormData();
 
     formData.append('textInput', inputText);
-    formData.append('file', file);
-    formData.append('length', summaryLength);
+    formData.append('urlInput', sourceUrl);
 
     const config = {
       headers: {
@@ -87,8 +71,8 @@ const Summarizer = () => {
     await handleResponse(result);
   };
 
-  const handleFileUpload = () => {
-    fileInputRef.current.click();
+  const handleSourceUrlChange = (event) => {
+    setSourceUrl(event.target.value);
   };
 
   const handleResponse = async (result) => {
@@ -113,7 +97,7 @@ const Summarizer = () => {
         <div className="flex items-center border-2 rounded-lg bg-white p-2 mb-2">
           <textarea
             ref={textareaRef}
-            className="bg-white w-full focus:outline-none resize-y overflow-auto min-h-6 max-h-32"
+            className="bg-white w-full focus:outline-none resize-y overflow-auto min-h-8 max-h-32 mt-1 ml-1"
             placeholder="Input the text to be summarized..."
             value={inputText}
             onChange={handleInputChange}
@@ -125,45 +109,44 @@ const Summarizer = () => {
           <p className="px-3 text-black text-m">or</p>
           <div className="flex-1 border-t-2 ml-1 mr-4 border-gray-300"></div>
         </div>
-        <div
-          className="flex items-center justify-center border-2 rounded-lg bg-white p-2 mb-4 cursor-pointer"
-          onClick={handleFileUpload}
-        >
-          <div className="flex items-center">
-            <img src={iconUpload} alt="Upload" className="h-4.5 w-4.5 mr-3" />
-            <span className="text-gray-500">Upload pdf, csv, txt</span>
+        <div className="flex items-center border-2 rounded-lg bg-white p-2 mb-2">
+          <div className="bg-white rounded-lg p-2">
+            <img src={iconLink} alt="Link" className="h-6 w-6" style={{ backgroundSize: 'auto' }} />
           </div>
           <input
-            ref={fileInputRef}
-            type="file"
-            onChange={handleFileChange}
-            accept=".pdf,.csv,.txt"
-            className="hidden"
+            type="text"
+            value={sourceUrl}
+            onChange={handleSourceUrlChange}
+            placeholder="www.sourcedocument.com"
+            className="bg-white w-full focus:outline-none ml-3"
           />
         </div>
-        <label htmlFor="lengthRange" className="text-sm font-medium text-gray-900 dark:text-gray-300">
-          Summarization Length: {summaryLength}
-        </label>
-        <input
-          id="lengthRange"
-          className="range range-primary mb-4"
-          type="range"
-          min="512"
-          max="4096"
-          step="512"
-          value={summaryLength}
-          onChange={handleLengthChange}
-          style={{
-            backgroundSize: `${((summaryLength - 512) / (4096 - 512)) * 100}% 100%` // Adjusts the track fill
-          }}
-        />
+        <div className="flex flex-col items-center mb-5">
+          <p className="text-black text-m mb-2">Choose your model</p>
+          <div className="flex justify-center">
+            <button
+              className={`px-16 py-3 rounded-2xl mr-5 ${isBasic ? 'bg-gradient-to-bl from-[#7ED4EF] via-[#298BD0] to-[#0169C2] text-white font-bold' : 'bg-gray-300 text-gray-700'}`}
+              onClick={() => setIsBasic(true)}
+              disabled={isBasic}
+            >
+              Basic
+            </button>
+            <button
+              className={`px-16 py-3 rounded-2xl ml-5 ${isBasic ? 'bg-gray-300 text-gray-700' : 'bg-gradient-to-br from-[#BA55D3] via-[#9B30FF] to-[#6B0AC9] text-white font-bold shadow-md shadow-[#5B5FC7]'}`}
+              onClick={() => setIsBasic(false)}
+              disabled={!isBasic}
+            >
+              Ultra
+            </button>
+          </div>
+        </div>
         <button
           className="bg-gradient-to-bl from-[#7ED4EF] via-[#298BD0] to-[#0169C2] text-white text-lg font-bold py-2 px-4 rounded-2xl hover:bg-blue-600 min-h-[40px] flex justify-center items-center disabled:opacity-50 disabled:cursor-not-allowed"
           id="summarizing-button"
           onClick={handleSubmit}
         >
           <span id='summarizing-button-text' className='flex flex-row'>
-            <img src={iconSend} alt="Send" className="mr-3" width={24} height={18} />
+            <img src={iconSend} alt="Send" className="mr-3" width={30} height={18} />
             Start Summarization
           </span>
           <PropagateLoader color="#ffffff" id='summarizing-button-spinner' size={10} className='!hidden top-[-5px]' />
