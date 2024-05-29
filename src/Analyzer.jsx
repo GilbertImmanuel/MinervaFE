@@ -3,6 +3,7 @@ import iconSend from './assets/icons/iconsend.png';
 import iconUpload from './assets/icons/iconupload.png';
 import iconLink from './assets/icons/iconlink.png';
 import WordCloud from './WordCloud';
+import BubbleChart from './BubbleChart';
 import TopicDistribution from './TopicDistribution';
 import { PropagateLoader } from 'react-spinners';
 import axios from 'axios';
@@ -187,7 +188,9 @@ const Analyzer = () => {
           </div>
         </div>
         <div className="w-1/2 ml-4 flex flex-col">
-          <div className="bg-white rounded-lg p-4 mb-4 h-1/2">LDA</div>
+          <div className="bg-white rounded-lg p-4 mb-4 h-1/2">
+            <BubbleChart />
+          </div>
           <div className="bg-white rounded-lg p-4 mt-4 h-1/2">
             {/* <WordCloud {/> */}
             <WordCloud sampleData={sampleData} />

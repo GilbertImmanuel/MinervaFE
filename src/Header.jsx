@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import PublicNavbar from './navbar/PublicNavbar';
 import UserNavbar from './navbar/UserNavbar';
+import History from './History';
 import logo from './assets/logo.png';
 
 const Header = ({ activeTab }) => {
@@ -72,13 +73,12 @@ const Header = ({ activeTab }) => {
         </button>
         <div
           ref={menuRef}
-          className={`absolute top-[56px] left-0 w-72 h-[600px] rounded-lg bg-white bg-opacity-95 z-20 overflow-auto transition-all duration-300 transform ${isMenuOpen ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-10 pointer-events-none'
-            }`}
+          className={`absolute top-[56px] left-0 w-72 h-[600px] rounded-lg bg-white bg-opacity-95 z-20 overflow-auto transition-all duration-300 transform ${
+            isMenuOpen ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-10 pointer-events-none'
+          }`}
           onClick={handleMenuClick}
         >
-          <div className="text-black font-bold text-l mb-1 px-4 pt-4">HISTORY</div>
-          <hr className="relative flex justify-center w-[90%] h-[2px] mx-auto bg-black border-0 rounded md:mb-4 dark:black"></hr>
-          {renderMenuContent()}
+          <History activeTab={activeTab} />
         </div>
         <img
           src={logo}
