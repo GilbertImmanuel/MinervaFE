@@ -180,8 +180,10 @@ const Analyzer = () => {
 
       <div className="flex justify-center w-full max-w-4xl h-[1000px]">
         <div className="w-1/2 mr-4 h-full">
-          <div className="bg-white rounded-lg p-4 h-full">
-            <TopicDistribution />
+          <div className="bg-white rounded-lg h-full overflow-hidden">
+            <div className='h-full p-4 overflow-y-scroll [scrollbar-width:thin] [scrollbar-color:#808080_#FFFFFF]'>
+              <TopicDistribution />
+            </div>
           </div>
         </div>
         <div className="w-1/2 ml-4 flex flex-col">
