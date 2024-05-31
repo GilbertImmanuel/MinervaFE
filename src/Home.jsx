@@ -11,14 +11,14 @@ const Home = () => {
   return (
     <div className="min-h-screen flex flex-col relative bg-gradient-to-br from-[#0B001A] to-[#0A2A43]">
       <img src="/src/assets/mainpages.png" className='-top-12 absolute w-full z-10'></img>
-      <Header />
+      <Header activeTab={activeTab} />
       <div className="w-full min-h-[calc(100vh_-_74px)] z-10">
         <div className='z-10'>
           <div className="text-center mt-6">
             <div className="flex justify-center items-center my-4">
-              <span className="font-bold text-xl pr-4 text-white">Summarizer</span>
+              <span className={`font-bold text-xl pr-4 ${activeTab === 'summarizer' ? 'text-white' : 'text-gray-400'}`}>Summarizer</span>
               <ToggleSwitch onTabSwitch={(newTab) => setActiveTab(newTab)} initialTab="analyzer" />
-              <span className="font-bold text-xl pl-4 text-gray-400">Analyzer</span>
+              <span className={`font-bold text-xl pl-4 ${activeTab === 'analyzer' ? 'text-white' : 'text-gray-400'}`}>Analyzer</span>
             </div>
             <h1 className="text-4xl montserrat font-bold text-white">Simplify Complexity with Artificial Intelligence</h1>
             <p className="mt-4 mb-2 monserrat text-white">Enjoy the ease and efficiency of gaining important insights with our tools</p>

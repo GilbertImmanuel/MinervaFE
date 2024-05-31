@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import PublicNavbar from './navbar/PublicNavbar';
 import UserNavbar from './navbar/UserNavbar';
 import History from './History';
@@ -22,11 +22,11 @@ const Header = ({ activeTab }) => {
     setIsMenuOpen(!isMenuOpen);
   };
 
+  // This function will now ignore clicks on the History component
   const handleClickOutside = (event) => {
     if (
-      menuRef.current &&
-      !menuRef.current.contains(event.target) &&
-      !hamburgerRef.current.contains(event.target)
+      hamburgerRef.current && !hamburgerRef.current.contains(event.target) &&
+      menuRef.current && !menuRef.current.contains(event.target)
     ) {
       setIsMenuOpen(false);
     }
@@ -35,25 +35,12 @@ const Header = ({ activeTab }) => {
   useEffect(() => {
     setIsLoggedIn(localStorage.getItem('accessToken') != null);
 
+    // Adding click listener to close the menu when clicking outside
     document.addEventListener('mousedown', handleClickOutside);
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
   }, []);
-
-  const renderMenuContent = () => {
-    if (activeTab === 'summarizer') {
-      return <div>Summarizer History</div>;
-    } else if (activeTab === 'analyzer') {
-      return <div>Analyzer History</div>;
-    } else {
-      return null;
-    }
-  };
-
-  const handleMenuClick = (event) => {
-    event.stopPropagation();
-  };
 
   return (
     <header className="text-white p-4 flex justify-between items-center bg-[#333333] bg-opacity-40 z-10 sticky top-0 left-0">
@@ -73,10 +60,9 @@ const Header = ({ activeTab }) => {
         </button>
         <div
           ref={menuRef}
-          className={`absolute top-[56px] left-0 w-72 h-[600px] rounded-lg bg-white bg-opacity-95 z-20 overflow-auto transition-all duration-300 transform ${
+          className={`absolute top-[56px] left-0 w-72 h-[600px] rounded-lg bg-[#0B001A] bg-opacity-95 border-2 border-white z-20 overflow-auto transition-all duration-300 transform ${
             isMenuOpen ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-10 pointer-events-none'
           }`}
-          onClick={handleMenuClick}
         >
           <History activeTab={activeTab} />
         </div>
