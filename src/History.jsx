@@ -25,11 +25,14 @@ const History = ({ activeTab }) => {
 
     const dataToDisplay = sampleHistoryData[activeTab];
     return (
-      <div className="border-t border-b border-white">
+      <div className="px-4 flex flex-col">
         {dataToDisplay.map((item, index) => (
           <div
             key={index}
-            className="py-2 px-4 text-sm border-t border-b border-gray-200 cursor-pointer hover:bg-gray-100 truncate overflow-hidden text-white"
+            className={`
+            py-2.5 px-6 text-base cursor-pointer truncate overflow-hidden font-normal rounded-xl text-black
+            hover:bg-gradient-to-bl hover:from-[#7ED4EF] hover:via-[#298BD0] hover:to-[#0169C2] hover:text-white
+            `}
             onClick={() => handleHistoryItemClick(item)}
           >
             {item}
@@ -40,10 +43,10 @@ const History = ({ activeTab }) => {
   };
 
   return (
-    <div className="bg-[#0B001A] text-white font-bold text-lg mb-1 px-0 pt-4">
+    <div className="bg-[#fafafa] text-black font-bold text-lg mb-1 px-0 pt-4">
       <div className="px-4">
-        HISTORY
-        <hr className="relative flex justify-center w-[100%] h-[2px] mx-auto bg-white border-0 rounded md:mb-4 dark:white mt-1"></hr>
+        History
+        <hr className="relative flex justify-center w-full h-[2px] mx-auto bg-[hsla(0,0%,0%,0.2)] border-0 rounded md:mb-4 dark:white mt-1"></hr>
       </div>
       {renderHistory()}
     </div>
