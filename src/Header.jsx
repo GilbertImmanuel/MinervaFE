@@ -44,7 +44,7 @@ const Header = ({ activeTab }) => {
   }, []);
 
   return (
-    <header className="text-white p-4 flex justify-between items-center bg-[#333333] bg-opacity-40 z-10 sticky top-0 left-0">
+    <header className="text-white p-4 flex justify-between items-center bg-[#333333] bg-opacity-40 z-20 sticky top-0 left-0">
       <div className="flex items-center relative">
         <button ref={hamburgerRef} className="mr-4" onClick={toggleMenu}>
           <svg
@@ -59,7 +59,6 @@ const Header = ({ activeTab }) => {
             <path d="M4 6h16M4 12h16m-7 6h7" />
           </svg>
         </button>
-        {/* Observasi: kalo diubah jadi relative, hovernya bisa tapi layoutnya rusak */}
         <div
           ref={menuRef}
           className={`absolute top-[56px] left-0 w-72 h-[600px] rounded-lg bg-[#fafafa] border-2 border-white z-20 overflow-auto transition-all duration-300 transform ${
