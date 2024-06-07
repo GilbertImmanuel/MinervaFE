@@ -3,10 +3,10 @@ import iconSend from './assets/icons/iconsend.png';
 import iconUpload from './assets/icons/iconupload.png';
 import iconLink from './assets/icons/iconlink.png';
 import WordCloud from './WordCloud';
-import BubbleChart from './BubbleChart';
 import TopicDistribution from './TopicDistribution';
 import { PropagateLoader } from 'react-spinners';
 import axios from 'axios';
+import ReactMarkdown from 'react-markdown'
 
 import { toast } from 'react-toastify';
 
@@ -16,6 +16,46 @@ const Analyzer = () => {
   const fileInputRef = useRef(null);
   const [analyzeLength, setAnalyzeLength] = useState(3);
   const [sampleData, setSampleData] = useState(null);
+  const [topicDistributionData, setTopicDistributionData] = useState(null);
+  const [markdown, setMarkdown] = useState('');
+
+  const wordCloudDataBuilder = (data) => {
+    const sorted = [];
+    for (var topic in data)
+      sorted.push([topic, data[topic]]);
+
+    sorted.sort((a, b) => a[1] - b[1]);
+    const top80 = sorted.slice(Math.max(sorted.length - 80, 1));
+    console.log(top80.length)
+
+    const wordCloudData = {};
+    top80.forEach((element) => {
+      wordCloudData[element[0]] = element[1];
+    });
+    return wordCloudData;
+  }
+
+  const topicDistributionDataBuilder = (data) => {
+    let topicDistributionData = {
+      "Topic Distribution": {}
+    };
+
+    data.forEach((element) => {
+      topicDistributionData["Topic Distribution"][element.topic] = element.percentage;
+    });
+
+    return topicDistributionData;
+  }
+
+  const markdownBuilder = (data) => {
+    let markdown = "";
+
+    data.forEach((element) => {
+      markdown += `**${element.topic}**\n\n\n${element.detail}\n\n\n`;
+    });
+
+    return markdown;
+  }
 
   const toggleButtonLoading = (isLoading = true) => {
     if (isLoading) {
@@ -62,13 +102,10 @@ const Analyzer = () => {
     console.log("File to process: ", file);
     console.log("Source URL: ", sourceUrl);
 
-    const url = 'http://localhost:3000/api/v1/analyzer';
+    const url = import.meta.env.VITE_REACT_APP_BACKEND_URL + '/api/v1/analyzer';
     const formData = new FormData();
 
     formData.append('urlInput', sourceUrl);
-
-    // sementara, Backend salah
-    formData.append('analyzeLength', analyzeLength);
     formData.append('file', file);
 
     const config = {
@@ -91,17 +128,25 @@ const Analyzer = () => {
     //   document.getElementById('summarizer-result').classList.remove('hidden');
     // }
 
-    setSampleData(response.data.data.wordcloud);
+    setSampleData(wordCloudDataBuilder(response.data.data.analysis.wordcloud));
+    setTopicDistributionData(topicDistributionDataBuilder(response.data.data.analysis.topic_distribution));
+    setMarkdown(markdownBuilder(response.data.data.analysis.topic_distribution));
 
     console.log("Result: ", response)
-    console.log(response.data.data.wordcloud)
-    console.log("Sample Data: ", sampleData)
     toggleButtonLoading(false);
   }
 
   useEffect(() => {
     console.log("Sample Data: ", sampleData);
   }, [sampleData]); // This effect runs whenever `sampleData` changes
+
+  useEffect(() => {
+    console.log("Topic Distribution Data: ", topicDistributionData);
+  }, [topicDistributionData]); // This effect runs whenever `topicDistributionData` changes
+
+  useEffect(() => {
+    console.log("Markdown: ", markdown);
+  }, [markdown]); // This effect runs whenever `markdown` changes
 
   return (
     <div className="flex justify-center flex-col items-center">
@@ -139,23 +184,6 @@ const Analyzer = () => {
             className="hidden"
           />
         </div>
-        {/* <hr class="relative flex justify-center w-[99%] h-1 mx-auto bg-gray-300 border-0 rounded md:mb-4 dark:bg-gray-300"></hr> */}
-        <label htmlFor="lengthRange" className="text-sm font-medium text-gray-900 dark:text-gray-300">
-          Topics Count: {analyzeLength}
-        </label>
-        <input
-          id="lengthRange"
-          className="range range-primary mb-4"
-          type="range"
-          min="3"
-          max="11"
-          step="2"
-          value={analyzeLength === 9 ? 10 : analyzeLength}
-          onChange={handleLengthChange}
-          style={{
-            backgroundSize: `${((analyzeLength - 3) / (11 - 3)) * 100}% 100%` // Adjust backgroundSize calculation
-          }}
-        />
         <button
           id="analyzing-button"
           className="bg-gradient-to-bl from-[#7ED4EF] via-[#298BD0] to-[#0169C2] text-white text-lg font-bold py-2 px-4 rounded-2xl hover:bg-blue-600 min-h-[40px] flex justify-center items-center disabled:opacity-50 disabled:cursor-not-allowed"
@@ -183,13 +211,13 @@ const Analyzer = () => {
         <div className="w-1/2 mr-4 h-full">
           <div className="bg-white rounded-lg h-full overflow-hidden">
             <div className='h-full p-4 overflow-y-scroll [scrollbar-width:thin] [scrollbar-color:#808080_#FFFFFF]'>
-              <TopicDistribution />
+              <ReactMarkdown children={markdown} className="react-markdown-test" />
             </div>
           </div>
         </div>
         <div className="w-1/2 ml-4 flex flex-col">
           <div className="bg-white rounded-lg p-4 mb-4 h-1/2">
-            <BubbleChart />
+            <TopicDistribution topicDistributionData={topicDistributionData} />
           </div>
           <div className="bg-white rounded-lg p-4 mt-4 h-1/2">
             {/* <WordCloud {/> */}

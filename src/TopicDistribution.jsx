@@ -135,22 +135,28 @@ const sampleData = {
   }
 };
 
-const topics = Object.values(sampleData);
+// const topics = Object.values(sampleData);
 
+const TopicDistribution = ({ topicDistributionData }) => {
+  if (topicDistributionData == null)
+    return
 
-const TopicDistribution = () => {
+  const topics = Object.values(topicDistributionData);
   return (
     <div className="w-full flex flex-wrap justify-around">
       {topics.map((topic, index) => {
         const probs = Object.values(topic);
         const labels = Object.keys(topic);
+        labels.forEach((label, index) => {
+          labels[index] = label.slice(0, 10) + '...';
+        });
         const color = colors[Math.floor(Math.random() * 100)][Math.floor(Math.random() * 5)];
 
         const chartData = {
-          labels: [labels[0], labels[1], labels[2]],
+          labels: labels,
           datasets: [{
-            data: [probs[0], probs[1], probs[2]],
-            backgroundColor: [color, color, color],
+            data: probs,
+            backgroundColor: color,
           }],
         }
 
@@ -169,13 +175,13 @@ const TopicDistribution = () => {
             },
             title: {
               display: true,
-              text: `Topic ${index+1}`,
+              text: `Topic Distribution`,
             },
           },
         };
 
         return (
-          <div key={index} style={{ "flex": `1 0 ${100 / topics.length}%`}}>
+          <div key={index} style={{ "flex": `1 0 ${100 / topics.length}%` }}>
             <Bar data={chartData} options={options} />
           </div>
         );

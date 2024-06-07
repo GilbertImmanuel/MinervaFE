@@ -1,19 +1,23 @@
 import axios from 'axios';
 import ReactMarkdown from 'react-markdown'
+import Markdown from 'markdown-to-jsx'
 import { PropagateLoader } from 'react-spinners';
 import React, { useState, useRef, useEffect } from 'react';
 import iconLink from './assets/icons/iconlink.png';
 import iconSend from './assets/icons/iconsend.png';
+import iconUpload from './assets/icons/iconupload.png';
 
 import { toast } from 'react-toastify';
 
 const Summarizer = () => {
+  const [file, setFile] = useState(null);
+  const fileInputRef = useRef(null);
   const [inputText, setInputText] = useState('');
   const [sourceUrl, setSourceUrl] = useState('');
   const [markdown, setMarkdown] = useState('')
   const textareaRef = useRef(null);
   const [isBasic, setIsBasic] = useState(true);
-  
+
   useEffect(() => {
     const handleResize = () => {
       const textarea = textareaRef.current;
@@ -28,8 +32,30 @@ const Summarizer = () => {
     };
   }, []);
 
+  const clearInputs = () => {
+    setInputText('');
+    setSourceUrl('');
+    setFile(null);
+  }
+
   const handleInputChange = (event) => {
+    clearInputs();
     setInputText(event.target.value);
+  };
+
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+    const allowedTypes = ['application/pdf', 'text/csv', 'text/plain'];
+    if (allowedTypes.includes(file.type)) {
+      clearInputs();
+      setFile(file);
+    } else {
+      toast.error('Please select a PDF, CSV, or TXT file.');
+    }
+  };
+
+  const handleFileUpload = () => {
+    fileInputRef.current.click();
   };
 
   const toggleButtonLoading = (isLoading = true) => {
@@ -49,12 +75,22 @@ const Summarizer = () => {
     toggleButtonLoading(true);
     console.log("Processing text: ", inputText);
     console.log("Source URL: ", sourceUrl);
+    console.log("File to process: ", file);
 
-    const url = 'http://localhost:3000/api/v1/summary';
+    const url = import.meta.env.VITE_REACT_APP_BACKEND_URL + '/api/v1/summary';
     const formData = new FormData();
 
-    formData.append('textInput', inputText);
-    formData.append('urlInput', sourceUrl);
+    if (inputText != "")
+      formData.append('textInput', inputText);
+    if (sourceUrl != "")
+      formData.append('urlInput', sourceUrl);
+    if (file != null) {
+      formData.append('file', file);
+      console.log("file uploaded")
+    }
+    formData.append('model', isBasic ? 'basic' : 'ultra');
+
+    console.log(formData)
 
     const config = {
       headers: {
@@ -63,6 +99,7 @@ const Summarizer = () => {
     }
 
     let result = await axios.post(url, formData, config).catch((error) => {
+      console.log("Error: ", error)
       toast.error(error.response.data.message);
       toggleButtonLoading(false);
     });
@@ -72,15 +109,19 @@ const Summarizer = () => {
   };
 
   const handleSourceUrlChange = (event) => {
+    clearInputs();
     setSourceUrl(event.target.value);
   };
 
   const handleResponse = async (result) => {
     toggleButtonLoading(false);
     let data = result.data.data.summary;
-    data.replace(/\n/gi, '\n &nbsp;')
+    console.log(data);
+    data.replace(/\n/gi, '<br />')
+    data = data.replace(/\$\$([^$]+)\$\$/g, '```latex\n$1\n```');
 
     setMarkdown(data)
+    console.log(data);
     const resultSection = document.getElementById('summarizer-result');
     resultSection.classList.remove('hidden');
     setTimeout(() => {
@@ -121,6 +162,27 @@ const Summarizer = () => {
             className="bg-white w-full focus:outline-none ml-3"
           />
         </div>
+        <div className="flex items-center justify-center mb-2">
+          <div className="flex-1 border-t-2 ml-4 mr-1 border-gray-300"></div>
+          <p className="px-3 text-black text-m">or</p>
+          <div className="flex-1 border-t-2 ml-1 mr-4 border-gray-300"></div>
+        </div>
+        <div
+          className="flex items-center justify-center border-2 rounded-lg bg-white p-2 mb-4 cursor-pointer"
+          onClick={handleFileUpload}
+        >
+          <div className="flex items-center">
+            <img src={iconUpload} alt="Upload" className="h-4.5 w-4.5 mr-3" style={{ backgroundSize: 'auto', backgroundColor: 'transparent' }} />
+            <span className="text-gray-500">Upload pdf, csv, txt</span>
+          </div>
+          <input
+            ref={fileInputRef}
+            type="file"
+            onChange={handleFileChange}
+            accept=".pdf,.csv,.txt"
+            className="hidden"
+          />
+        </div>
         <div className="flex flex-col items-center mb-5">
           <p className="text-black text-m mb-2">Choose your model</p>
           <div className="flex justify-center">
@@ -156,7 +218,8 @@ const Summarizer = () => {
       <section id="summarizer-result" className='hidden flex flex-col items-center'>
         <h2 className='text-2xl montserrat font-bold text-white' id="summarizer-result-label">Summarized text results</h2>
         <div className="bg-white shadow-md rounded-3xl p-6 m-4 flex flex-col items-stretch w-full max-w-4xl" id="summarizer-result-text">
-          <ReactMarkdown children={markdown} className="react-markdown-test" />
+          {/* <ReactMarkdown children={markdown} className="react-markdown-test" /> */}
+          <Markdown className="react-markdown-test">{markdown}</Markdown>
         </div>
       </section>
     </div>
