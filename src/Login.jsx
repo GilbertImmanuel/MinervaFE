@@ -22,7 +22,7 @@ const Login = () => {
       password: document.getElementById('password').value
     }
 
-    const response = await axios.post('http://localhost:3000/api/v1/auth/email/login', requestBody, config).catch((error) => {
+    const response = await axios.post(import.meta.env.VITE_REACT_APP_BACKEND_URL + '/api/v1/auth/email/login', requestBody, config).catch((error) => {
       switch (error.response.data.status) {
         case 'error':
           toast.error((error.response.data.message) ? error.response.data.message : (error.response.statusText) ? error.response.statusText : 'An unexpected error occurred');

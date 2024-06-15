@@ -71,8 +71,10 @@ const dummyData = {
 };
 
 const WordCloud = ({ sampleData }) => {
+  // if (!sampleData)
+  //   sampleData = dummyData;
   if (!sampleData)
-    sampleData = dummyData;
+    return
 
   const sampleKeys = Object.keys(sampleData);
   const sampleValues = Object.values(sampleData);

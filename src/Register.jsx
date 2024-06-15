@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import googleIcon from './assets/googleIcon.png';
-import logo from './assets/logo.png'; // Add the path to your Google icon image
+import logo from './assets/logo.png';
 
 const Register = () => {
   const navigate = useNavigate();
 
-  const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -14,7 +13,7 @@ const Register = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     // Registration logic here
-    console.log('Register with:', fullName, email, password, confirmPassword);
+    console.log('Register with:', email, password, confirmPassword);
     // Navigate to the login page
     navigate('/login');
   };
@@ -26,19 +25,6 @@ const Register = () => {
         <div className="w-full max-w-md">
           <form className="mt-8 space-y-6 bg-white shadow-md rounded-xl px-8 pt-6 pb-8" onSubmit={handleSubmit}>
             <div className="rounded-md shadow-sm -space-y-px">
-              {/* Full Name Input */}
-              <div className="mb-3">
-                <label className="block text-gray-700 text-sm font-semibold mb-2" htmlFor="full-name">
-                  Full name
-                </label>
-                <input
-                  id="full-name"
-                  type="text"
-                  value={fullName}
-                  onChange={(e) => setFullName(e.target.value)}
-                  className="appearance-none rounded-md relative block w-full px-3 py-3 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                />
-              </div>
               {/* Email Input */}
               <div className="mb-3">
                 <label className="block text-gray-700 text-sm font-semibold mb-2" htmlFor="email">
@@ -49,6 +35,7 @@ const Register = () => {
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
+                  required
                   className="appearance-none rounded-md relative block w-full px-3 py-3 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm mb-3"
                 />
               </div>
@@ -62,6 +49,7 @@ const Register = () => {
                   type="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
+                  required
                   className="appearance-none rounded-md relative block w-full px-3 py-3 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm mb-3"
                 />
               </div>
@@ -75,7 +63,9 @@ const Register = () => {
                   type="password"
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
-                  className="appearance-none rounded-md relative block w-full px-3 py-3 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" />
+                  required
+                  className="appearance-none rounded-md relative block w-full px-3 py-3 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                />
               </div>
             </div>
             {/* Register Button */}
@@ -98,10 +88,10 @@ const Register = () => {
             </div>
             <div className="text-center">
               <p className="text-gray-600 text-sm">
-              Have an account? {' '}
-              <Link to="/login" className="font-semibold text-gray-700 hover:text-gray-800 cursor-pointer">
-                Log In Now
-              </Link>
+                Have an account? {' '}
+                <Link to="/login" className="font-semibold text-gray-700 hover:text-gray-800 cursor-pointer">
+                  Log In Now
+                </Link>
               </p>
             </div>
           </form>
@@ -118,7 +108,7 @@ const Register = () => {
             "Where the research begins"
           </p>
         </div>
-      </div>
+      </div>``
     </div>
   );
 };
