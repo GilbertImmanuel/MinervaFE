@@ -1,4 +1,7 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import SummarizerHistory from './chathistory/SummarizerHistory';
+import AnalyzerHistory from './chathistory/AnalyzerHistory';
 
 // Sample history data
 const sampleHistoryData = {
@@ -13,9 +16,15 @@ const sampleHistoryData = {
 };
 
 const History = ({ activeTab }) => {
+  const navigate = useNavigate();
+
   // Function to handle click events on history items
-  const handleHistoryItemClick = (item) => {
-    console.log("Clicked on history item:", item); // Example action, replace with your actual function
+  const handleHistoryItemClick = (item, index) => {
+    if (activeTab === 'summarizer') {
+      navigate(`/summarizer-history/${index}`, { state: { summary: item } });
+    } else if (activeTab === 'analyzer') {
+      navigate(`/analyzer-history/${index}`, { state: { analysis: item } });
+    }
   };
 
   const renderHistory = () => {
@@ -33,7 +42,7 @@ const History = ({ activeTab }) => {
             py-2.5 px-6 text-base cursor-pointer truncate overflow-hidden font-normal rounded-xl text-black
             hover:bg-gradient-to-bl hover:from-[#7ED4EF] hover:via-[#298BD0] hover:to-[#0169C2] hover:text-white
             `}
-            onClick={() => handleHistoryItemClick(item)}
+            onClick={() => handleHistoryItemClick(item, index)}
           >
             {item}
           </div>

@@ -97,7 +97,7 @@ const Summarizer = () => {
         <div className="flex items-center border-2 rounded-lg bg-white p-2 mb-2">
           <textarea
             ref={textareaRef}
-            className="bg-white w-full focus:outline-none resize-y overflow-auto min-h-8 max-h-32 mt-1 ml-1"
+            className="bg-white w-full focus:outline-none resize-y overflow-auto min-h-32 max-h-32 mt-1 ml-1"
             placeholder="Input the text to be summarized..."
             value={inputText}
             onChange={handleInputChange}

@@ -97,6 +97,9 @@ const Analyzer = () => {
     console.log(response.data.data.wordcloud)
     console.log("Sample Data: ", sampleData)
     toggleButtonLoading(false);
+
+    const resultSection = document.getElementById('analyzer-result');
+    resultSection.classList.remove('hidden');
   }
 
   useEffect(() => {
@@ -179,7 +182,7 @@ const Analyzer = () => {
         ></div>
       </section> */}
 
-      <div className="flex justify-center w-full max-w-4xl h-[1000px]">
+      <div id="analyzer-result" className="hidden flex justify-center w-full max-w-4xl h-[1000px]">
         <div className="w-1/2 mr-4 h-full">
           <div className="bg-white rounded-lg h-full overflow-hidden">
             <div className='h-full p-4 overflow-y-scroll [scrollbar-width:thin] [scrollbar-color:#808080_#FFFFFF]'>
@@ -192,7 +195,6 @@ const Analyzer = () => {
             <BubbleChart />
           </div>
           <div className="bg-white rounded-lg p-4 mt-4 h-1/2">
-            {/* <WordCloud {/> */}
             <WordCloud sampleData={sampleData} />
           </div>
         </div>
