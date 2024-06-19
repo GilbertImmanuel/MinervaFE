@@ -4,13 +4,18 @@ import Analyzer from './Analyzer';
 import Summarizer from './Summarizer';
 import ToggleSwitch from './ToggleSwitch';
 import Footer from './Footer';
+import aboutimage1 from './assets/aboutimage1.png';
+import aboutimage2 from './assets/aboutimage2.png';
+import aboutimage3 from './assets/aboutimage3.png';
+import mainpages from './assets/mainpages.png';
+import mainpages2 from './assets/mainpages2.png';
 
 const Home = () => {
   const [activeTab, setActiveTab] = useState('summarizer');
 
   return (
     <div className="min-h-screen flex flex-col relative bg-gradient-to-br from-[#0B001A] to-[#0A2A43]">
-      <img src="/src/assets/mainpages.png" className='-top-12 absolute w-full z-10'></img>
+      <img src={mainpages} className='-top-12 absolute w-full z-10'></img>
       <Header activeTab={activeTab} />
       <div className="w-full min-h-[calc(100vh_-_74px)] z-10">
         <div className='z-10'>
@@ -45,13 +50,13 @@ const Home = () => {
                 </div>
               </div>
               <div className="flex justify-center items-center">
-                <img src="/src/assets/aboutimage1.png" alt="About Image 1" className="relative z-10 w-84" />
+                <img src={aboutimage1} alt="About Image 1" className="relative z-10 w-84" />
               </div>
             </div>
 
             <div className="grid grid-cols-2 gap-4 mt-14">
               <div className="flex justify-center items-center">
-                <img src="/src/assets/aboutimage2.png" alt="About Image 2" className="relative z-10 h-72" />
+                <img src={aboutimage2} alt="About Image 2" className="relative z-10 h-72" />
               </div>
               <div className="flex items-center relative">
                 <div className="absolute inset-0 flex items-center">
@@ -73,14 +78,14 @@ const Home = () => {
                 </div>
               </div>
               <div className="flex justify-center items-center">
-                <img src="/src/assets/aboutimage3.png" alt="About Image 3" className="relative z-10 h-72" />
+                <img src={aboutimage3} alt="About Image 3" className="relative z-10 h-72" />
               </div>
             </div>
           </div>
         </div>
       </div>
       <div className='flex flex-col relative about-section'>
-        <img src="/src/assets/mainpages2.png" className='-top-96 absolute w-full'></img>
+        <img src={mainpages2} className='-top-96 absolute w-full'></img>
         <div className="mx-auto max-w-5xl mt-14 text-white z-10">
           <h1 className="text-center text-4xl font-bold">About Summasphere</h1>
           <p className="text-justify text-xl mt-8">

@@ -3,6 +3,6 @@
         "src"
     ],
     "ext": "ts,tsx,js,jsx",
-    "exec": "vite dev",
+    "exec": "vite dev --config vite.config.dev.js",
     "legacyWatch": true
 }

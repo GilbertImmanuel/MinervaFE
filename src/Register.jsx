@@ -98,10 +98,10 @@ const Register = () => {
             </div>
             <div className="text-center">
               <p className="text-gray-600 text-sm">
-              Have an account? {' '}
-              <Link to="/login" className="font-semibold text-gray-700 hover:text-gray-800 cursor-pointer">
-                Log In Now
-              </Link>
+                Have an account? {' '}
+                <Link to="/login" className="font-semibold text-gray-700 hover:text-gray-800 cursor-pointer">
+                  Log In Now
+                </Link>
               </p>
             </div>
           </form>

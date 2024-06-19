@@ -61,9 +61,8 @@ const Header = ({ activeTab }) => {
         </button>
         <div
           ref={menuRef}
-          className={`absolute top-[56px] left-0 w-72 h-[600px] rounded-lg bg-[#fafafa] border-2 border-white z-20 overflow-auto transition-all duration-300 transform ${
-            isMenuOpen ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-10 pointer-events-none'
-          }`}
+          className={`absolute top-[56px] left-0 w-72 h-[600px] rounded-lg bg-[#fafafa] border-2 border-white z-20 overflow-auto transition-all duration-300 transform ${isMenuOpen ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-10 pointer-events-none'
+            }`}
         >
           <History activeTab={activeTab} />
         </div>
