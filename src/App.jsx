@@ -8,6 +8,7 @@ import Login from './Login';
 import Register from './Register';
 import ForgetPassword from './ForgetPassword';
 import Logout from './Logout';
+import ConfirmEmail from './ConfirmEmail';
 
 const App = () => {
   const [activeTab, setActiveTab] = useState('summarizer');
@@ -26,6 +27,7 @@ const App = () => {
         <Route path="/logout" element={<Logout />} />
         <Route path="/register" element={<Register />} />
         <Route path="/forgetpassword" element={<ForgetPassword />} />
+        <Route path="/confirm-email" element={<ConfirmEmail />} />
         {/* Define other routes as needed */}
       </Routes>
     </Router>
