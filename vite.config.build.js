@@ -18,13 +18,13 @@ export default defineConfig({
         },
     },
     preview: {
-        port: 5050,
+        port: 8080,
         strictPort: true,
     },
     server: {
-        port: 5050,
+        port: 8080,
         strictPort: true,
         host: true,
-        origin: "http://0.0.0.0:5050",
+        origin: "http://0.0.0.0:8080",
     },
 }) 
