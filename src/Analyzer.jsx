@@ -87,6 +87,17 @@ const Analyzer = () => {
     fileInputRef.current.click();
   };
 
+  const displayFileName = () => {
+    if (file) {
+      return (
+        <div className="bg-gray-200 rounded-lg py-3 px-4 ml-3 max-w-[60%]">
+          <p className="text-gray-700 text-sm truncate">{file.name}</p>
+        </div>
+      );
+    }
+    return null;
+  };
+
   const handleLengthChange = (event) => {
     const value = parseInt(event.target.value);
     if (value < 9) {
@@ -134,6 +145,9 @@ const Analyzer = () => {
 
     console.log("Result: ", response)
     toggleButtonLoading(false);
+
+    const resultSection = document.getElementById('analyzer-result');
+    resultSection.classList.remove('hidden');
   }
 
   useEffect(() => {
@@ -169,13 +183,14 @@ const Analyzer = () => {
           <div className="flex-1 border-t-2 ml-1 mr-4 border-gray-300"></div>
         </div>
         <div
-          className="flex items-center justify-center border-2 rounded-lg bg-white p-2 mb-4 cursor-pointer"
+          className={`flex items-center justify-center border-2 rounded-lg bg-white p-2 mb-4 cursor-pointer ${file ? 'py-4' : ''}`}
           onClick={handleFileUpload}
         >
           <div className="flex items-center">
             <img src={iconUpload} alt="Upload" className="h-4.5 w-4.5 mr-3" style={{ backgroundSize: 'auto', backgroundColor: 'transparent' }} />
-            <span className="text-gray-500">Upload pdf, csv, txt</span>
+            {!file && <span className="text-gray-500">Upload pdf, csv, txt</span>}
           </div>
+          {displayFileName()}
           <input
             ref={fileInputRef}
             type="file"
@@ -207,7 +222,7 @@ const Analyzer = () => {
         ></div>
       </section> */}
 
-      <div className="flex justify-center w-full max-w-4xl h-[1000px]">
+      <div id="analyzer-result" className="hidden flex justify-center w-full max-w-4xl h-[1000px]">
         <div className="w-1/2 mr-4 h-full">
           <div className="bg-white rounded-lg h-full overflow-hidden">
             <div className='h-full p-4 overflow-y-scroll [scrollbar-width:thin] [scrollbar-color:#808080_#FFFFFF]'>
@@ -220,7 +235,6 @@ const Analyzer = () => {
             <TopicDistribution topicDistributionData={topicDistributionData} />
           </div>
           <div className="bg-white rounded-lg p-4 mt-4 h-1/2">
-            {/* <WordCloud {/> */}
             <WordCloud sampleData={sampleData} />
           </div>
         </div>

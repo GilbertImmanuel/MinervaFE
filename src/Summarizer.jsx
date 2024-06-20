@@ -58,6 +58,17 @@ const Summarizer = () => {
     fileInputRef.current.click();
   };
 
+  const displayFileName = () => {
+    if (file) {
+      return (
+        <div className="bg-gray-200 rounded-lg py-3 px-4 ml-3 max-w-[60%]">
+          <p className="text-gray-700 text-sm truncate">{file.name}</p>
+        </div>
+      );
+    }
+    return null;
+  };
+
   const toggleButtonLoading = (isLoading = true) => {
     if (isLoading) {
       document.getElementById('summarizer-result').classList.add('hidden');
@@ -138,7 +149,7 @@ const Summarizer = () => {
         <div className="flex items-center border-2 rounded-lg bg-white p-2 mb-2">
           <textarea
             ref={textareaRef}
-            className="bg-white w-full focus:outline-none resize-y overflow-auto min-h-8 max-h-32 mt-1 ml-1"
+            className="bg-white w-full focus:outline-none resize-y overflow-auto min-h-32 max-h-32 mt-1 ml-1"
             placeholder="Input the text to be summarized..."
             value={inputText}
             onChange={handleInputChange}
@@ -168,13 +179,14 @@ const Summarizer = () => {
           <div className="flex-1 border-t-2 ml-1 mr-4 border-gray-300"></div>
         </div>
         <div
-          className="flex items-center justify-center border-2 rounded-lg bg-white p-2 mb-4 cursor-pointer"
+          className={`flex items-center justify-center border-2 rounded-lg bg-white p-2 mb-4 cursor-pointer ${file ? 'py-4' : ''}`}
           onClick={handleFileUpload}
         >
           <div className="flex items-center">
             <img src={iconUpload} alt="Upload" className="h-4.5 w-4.5 mr-3" style={{ backgroundSize: 'auto', backgroundColor: 'transparent' }} />
-            <span className="text-gray-500">Upload pdf, csv, txt</span>
+            {!file && <span className="text-gray-500">Upload pdf, csv, txt</span>}
           </div>
+          {displayFileName()}
           <input
             ref={fileInputRef}
             type="file"
