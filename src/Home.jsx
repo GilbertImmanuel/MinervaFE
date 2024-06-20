@@ -25,7 +25,7 @@ const Home = () => {
               <ToggleSwitch onTabSwitch={(newTab) => setActiveTab(newTab)} initialTab="analyzer" />
               <span className={`font-bold text-xl pl-4 ${activeTab === 'analyzer' ? 'text-white' : 'text-gray-400'}`}>Analyzer</span>
             </div>
-            <h1 className="text-4xl montserrat font-bold text-white">Simplify Complexity with Artificial Intelligence</h1>
+            <h1 className="text-4xl montserrat font-bold text-white">Supercharger Your Research with Summasphere</h1>
             <p className="mt-4 mb-2 monserrat text-white">Enjoy the ease and efficiency of gaining important insights with our tools</p>
           </div>
           <main className="flex-grow p-4 w-[40%] rounded-3xl w-full">
